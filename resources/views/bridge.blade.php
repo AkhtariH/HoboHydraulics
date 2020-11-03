@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Bridge')
 
 @section('content')
     <!-- Skill bars-->
