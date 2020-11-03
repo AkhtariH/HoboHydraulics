@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator,Redirect,Response;
+use App\Models\User;
+use App\Models\Bridge;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Session;
 
 class AuthController extends Controller
 {
     public function index() {
+        if (Auth::check()){
+            return Redirect::to('dashboard');           
+        }
+
         return view('login');
     }
 
@@ -23,10 +33,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            $bridges = Bridge::all();
+
             return redirect()->intended('dashboard');
         }
 
-        return Redirect::to('login')->withSuccess("Entered credetnials are wrong!");
+        return Redirect::to('login')->withErrors(['Entered credetnials are wrong!']);
     }
 
     public function postRegister(Request $request) {
@@ -45,10 +57,12 @@ class AuthController extends Controller
 
     public function dashboard() {
         if (Auth::check()) {
-            return view('dashboard');
+            $bridges = Bridge::all();
+            
+            return view('dashboard', compact('bridges'));
         }
 
-        return Redirect::to('login')->withSuccess('You have to be logged in!');
+        return Redirect::to('login')->withErrors(['You have to be logged in!']);
     }
 
     public function create(array $data) {
@@ -59,7 +73,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout () {
+    public function logout() {
         Session::flush();
         Auth::logout();
         return Redirect('login');
