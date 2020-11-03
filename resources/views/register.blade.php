@@ -1,38 +1,38 @@
-@extends('layout.app')
+@extends('layout.form')
 
 @section('title', 'Register')
 
 @section('content')
-    <div class="card-body">
-        <form action="{{url('post-register')}}" method="POST" id="regForm">
+    <h3 class="mb-2 force-white">Register</h3>
+    <small class="force-white">Add a new user</small>
+    @if($errors->any())
+        <div class="alert alert-danger">{{$errors->first()}}</div>
+    @endif
+    <form action="{{ url('post-register') }}" method="POST" class="mt-2">
         {{ csrf_field() }}
-            <div class="form-group">
-                <label class="small mb-1" for="inputFirstName">Full Name</label>
-                <input class="form-control py-4" id="inputFirstName" type="text" name="name" placeholder="Enter Full Name" />
-                @if ($errors->has('name'))
-                <span class="error">{{ $errors->first('name') }}</span>
-                @endif  
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
             </div>
-            <div class="form-group">
-                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" name="email" placeholder="Enter email address" />
-                @if ($errors->has('email'))
-                <span class="error">{{ $errors->first('email') }}</span>
-                @endif
+            <input type="text" name="name" class="form-control mt-0" placeholder="Full name" aria-label="Full name" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
             </div>
-            <div class="form-group">
-                <label class="small mb-1" for="inputPassword">Password</label>
-                <input class="form-control py-4" id="inputPassword" type="password" name="password" placeholder="Enter password" />
-                @if ($errors->has('password'))
-                <span class="error">{{ $errors->first('password') }}</span>
-                @endif
+            <input type="email" name="email" class="form-control mt-0" placeholder="e-Mail" aria-label="e-Mail" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
             </div>
-            <div class="form-group mt-4 mb-0">
-                <button class="btn btn-primary btn-block" type="submit">Create Account</button>
-            </div>
-        </form>
-    </div>
-    <div class="card-footer text-center">
-        <div class="small"><a href="{{url('login')}}">Have an account? Go to login</a></div>
-    </div>
+            <input type="password" name="password" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-light btn-block p-2 mb-1" type="submit" name="submit">Add user</button>
+        </div>
+    </form>
 @endsection
