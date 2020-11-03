@@ -12,10 +12,10 @@
 
 ## ToDo
 
-- Add remaining tables and migrate
-- Add user roles
-- Add admin panel
-- Change [register] to [add user] in admin controller
+- Add remaining tables and migrate [ ]
+- Add user roles [ ]
+- Add admin panel [ ]
+- Change [register] to [add user] in admin controller [ ]
 - ...
 
 ## Contributing
