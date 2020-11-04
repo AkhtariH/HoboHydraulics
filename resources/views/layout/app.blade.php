@@ -99,7 +99,7 @@
                     <!--Image Avatar-->
                     <div class="avatar text-center">
                         <img src="{{ asset('/img/default-avatar.jpg') }}" alt="" class="rounded-circle" />
-                        <p><strong>Welcome {{ ucfirst(Auth()->user()->name) }}!</strong></p>
+                        <p><strong>Welcome<br>{{ ucfirst(Auth()->user()->name) }}!</strong></p>
                         <span class="text-danger small"><strong>Employee</strong></span>
                     </div>
                     <!--Image Avatar-->
