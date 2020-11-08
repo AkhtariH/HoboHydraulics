@@ -100,35 +100,73 @@
                     <div class="avatar text-center">
                         <img src="{{ asset('/img/default-avatar.jpg') }}" alt="" class="rounded-circle" />
                         <p><strong>Welcome<br>{{ ucfirst(Auth()->user()->name) }}!</strong></p>
-                        <span class="text-danger small"><strong>Employee</strong></span>
+                        <span class="text-danger small"><strong>{{ ucfirst(Auth()->user()->type) }}</strong></span>
                     </div>
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
                     <div class="sidebar-menu-container">
-                        <ul class="sidebar-menu mt-4 mb-4">
-                            <li class="parent">
-                                <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                                    <span class="none">My Profile</span>
-                                </a>
-                            </li>
-                            <li class="parent">
-                                <a href="#" onclick="toggle_menu('dashboard'); return false" class=""><i class="fa fa-dashboard mr-3"> </i>
-                                    <span class="none">Bridges<i class="fa fa-angle-down pull-right align-bottom"></i></span>
-                                </a>
-                                <ul class="children" id="dashboard">
-                                    @foreach ($bridges as $bridge) 
-                                        <li class="child"><a href="{{ route('show.bridge', $bridge->id) }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>{{ $bridge->name }}</a></li>
-                                    @endforeach
+                        @if (Route::is('show.dashboard'))
+                                @if (Auth()->user()->isAdmin())
+                                    <ul class="sidebar-menu mt-4 mb-4">
+                                        <li class="parent">
+                                            <a href="{{ route('admin.index') }}" class=""><i class="fas fa-toolbox mr-3"></i>
+                                                <span class="none">Admin Panel</span>
+                                            </a>
+                                        </li>
+                                    </ul>                            
+                                @endif
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                            <span class="none">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li class="parent">
+                                        <a href="#" onclick="toggle_menu('dashboard'); return false" class=""><i class="fa fa-dashboard mr-3"> </i>
+                                            <span class="none">Bridges<i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                                        </a>
+                                        <ul class="children" id="dashboard">
+                                            @foreach ($bridges as $bridge) 
+                                                <li class="child"><a href="{{ route('show.bridge', $bridge->id) }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>{{ $bridge->name }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                    <li class="parent">
+                                        <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                            <span class="none">Tasks</span>
+                                        </a>
+                                    </li>
                                 </ul>
-                            </li>
-                            </li>
-                            <li class="parent">
-                                <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                                    <span class="none">Tasks</span>
-                                </a>
-                            </li>
-                        </ul>
+                        @endif
+
+                        {{-- Admin Panel --}}
+                        @if (Route::is('admin.*'))
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="{{ url('admin/register') }}" class=""><i class="fas fa-user-plus mr-3"></i>
+                                            <span class="none">Add user</span>
+                                        </a>
+                                    </li>
+                                    <li class="parent">
+                                        <a href="{{ url('admin/add-bridge') }}" class=""><i class="fas fa-plus mr-3"></i>
+                                            <span class="none">Add bridge</span>
+                                        </a>
+                                    </li>
+                                    <li class="parent">
+                                        <a href="#" class=""><i class="fas fa-expand-arrows-alt mr-3"></i>
+                                            <span class="none">Assign bridges</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="{{ route('show.dashboard') }}" class=""><i class="fas fa-chevron-left mr-3"></i>
+                                            <span class="none">Dashboard</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                        @endif
                     </div>
                     <!--Sidebar Naigation Menu-->
                 </div>

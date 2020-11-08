@@ -9,5 +9,10 @@ class User extends Authenticatable
 {
     use HasRoles;
 
-    // ...
+    const ADMIN_ROLE = 'admin';
+    const DEFAULT_ROLE = 'employee';
+
+    public function isAdmin() {
+        return $this->type === self::ADMIN_ROLE;
+    }
 }

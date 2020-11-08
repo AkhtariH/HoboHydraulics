@@ -24,4 +24,11 @@ Route::get('register', 'App\Http\Controllers\AuthController@register');
 Route::post('post-register', 'App\Http\Controllers\AuthController@postRegister');
 Route::get('dashboard', 'App\Http\Controllers\AuthController@dashboard')->name('show.dashboard');
 Route::get('logout', 'App\Http\Controllers\AuthController@logout')->name('user.logout');
+
 Route::get('bridge/{id}', 'App\Http\Controllers\BridgeController@index')->name('show.bridge');
+
+Route::get('admin', 'App\Http\Controllers\AdminController@index')->middleware('is_admin')->name('admin.index');
+Route::get('admin/register', 'App\Http\Controllers\AdminController@register')->middleware('is_admin')->name('admin.register');
+Route::post('admin/post-register', 'App\Http\Controllers\AdminController@postRegister')->middleware('is_admin');
+Route::get('admin/add-bridge', 'App\Http\Controllers\AdminController@addBridge')->middleware('is_admin')->name('admin.addbridge');
+Route::post('admin/post-add-bridge', 'App\Http\Controllers\AdminController@postAddBridge')->middleware('is_admin');
