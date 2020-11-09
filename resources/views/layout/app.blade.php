@@ -7,6 +7,7 @@
     <meta name="author" content="Hemran Akhtari">
     <meta name="keywords" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--Meta Responsive tag-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -128,7 +129,7 @@
                                         </a>
                                         <ul class="children" id="dashboard">
                                             @foreach ($bridges as $bridge) 
-                                                <li class="child"><a href="{{ route('show.bridge', $bridge->id) }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>{{ $bridge->name }}</a></li>
+                                                <li class="child"><a href="" class="ml-4"><i class="fa fa-angle-right mr-2"></i>{{ $bridge->name }}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
@@ -144,18 +145,13 @@
                         @if (Route::is('admin.*'))
                                 <ul class="sidebar-menu mt-4 mb-4">
                                     <li class="parent">
-                                        <a href="{{ url('admin/register') }}" class=""><i class="fas fa-user-plus mr-3"></i>
-                                            <span class="none">Add user</span>
+                                        <a href="{{ url('admin/user') }}" class=""><i class="fas fa-users mr-3"></i>
+                                            <span class="none">Manage users</span>
                                         </a>
                                     </li>
                                     <li class="parent">
-                                        <a href="{{ url('admin/add-bridge') }}" class=""><i class="fas fa-plus mr-3"></i>
-                                            <span class="none">Add bridge</span>
-                                        </a>
-                                    </li>
-                                    <li class="parent">
-                                        <a href="#" class=""><i class="fas fa-expand-arrows-alt mr-3"></i>
-                                            <span class="none">Assign bridges</span>
+                                        <a href="{{ url('admin/bridge') }}" class=""><i class="fas fa-edit mr-3"></i>
+                                            <span class="none">Manage bridges</span>
                                         </a>
                                     </li>
                                 </ul>

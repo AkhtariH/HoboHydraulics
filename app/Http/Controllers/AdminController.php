@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Session;
 use App\Models\User;
 use App\Models\Bridge;
+use App\Models\UserBridge;
 
 class AdminController extends Controller
 {
@@ -19,59 +20,28 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function register() {
-        return view('admin.register');
-    }
-
-    public function postRegister(Request $request) {
+    public function assign(Request $request) {
         request()->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'type' => 'required'
+            'id' => 'required',
+            'bid' => 'required',
+            'checked' => 'required',
         ]);
+        
+        $data = collect(['user_id' => $request->input('id')]);
+        $data->put('bridge_id', $request->input('bid'));
+        
+        if ($request->input('checked') == 1) {
+            UserBridge::create($data->toArray());
+        } else {
+            $user_bridge = UserBridge::where([
+                ['user_id', '=', $request->input('id')], 
+                ['bridge_id', '=', $request->input('bid')]
+            ]);
 
-        $data = $request->all();
+            $user_bridge->delete();
+        }
 
-        $check = $this->create($data);
 
-        // TODO: send email to user with credentials
-
-        return Redirect::to('admin')->with('success', 'User has been created!');
-    }
-
-    public function create(array $data) {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'type' => $data['type']
-        ]);
-    }
-
-    public function addBridge() {
-        return view('admin.bridge');
-    }
-
-    public function postAddBridge(Request $request) {
-        request()->validate([
-            'name' => 'required',
-            'adress' => 'required',
-            'supervisor' => 'required',
-            'bridgeHash' => 'required|unique:bridges'
-        ]);
-
-        $data = $request->all();
-
-        $check = Bridge::create([
-            'name' => $data['name'],
-            'adress' => $data['adress'],
-            'supervisor' => $data['supervisor'],
-            'bridgeHash' => $data['bridgeHash']
-        ]);
-
-        // TODO: send email to user with credentials
-
-        return Redirect::to('admin')->with('success', 'Bridge has been created!');
+        return response()->json(array('msg', 'worked'), 200);
     }
 }

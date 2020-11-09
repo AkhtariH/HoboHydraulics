@@ -1944,6 +1944,96 @@ span.tag.label.label-info {
     line-height: 160px;
 }
 
+
+.edit-user {
+    margin-left: 5px;
+    font-size: 15px;
+    display: none;
+    color: rgb(66,139,202);
+}
+
+.edit-bridge {
+    margin-left: 5px;
+    font-size: 15px;
+    display: inline-block;
+    color: rgb(66,139,202);
+}
+
+.inline {
+    display: inline;
+}
+
+.font-15 {
+    font-size: 15px;
+    cursor: pointer;
+    -webkit-user-select: none;
+  
+    /* Chrome/Safari */
+    -moz-user-select: none;
+  
+    /* Firefox */
+    -ms-user-select: none;
+  
+    /* IE10+ */
+    -o-user-select: none;
+    user-select: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+input[type="checkbox"]:checked + .font-15 {
+    background-color: red;
+}
+
+.custom-header a{
+    margin-left: 10px;
+    font-size: 12.5px;
+    vertical-align: middle;
+    color: white;
+}
+
+
+.custom-header h3{
+    vertical-align: middle;
+    display: inline;
+}
+
+.close {
+    margin-right: -7.5px;
+    margin-top: -7.5px;
+    display: none !important;
+}
+
+.user-card:hover > form > .close {
+    display: block !important;
+}
+
+.user-card:hover > div > .media > .media-body > h5 > a > .edit-user {
+    display: inline-block !important;
+}
+
+.bootstrap-link {
+    color: rgb(66,139,202) !important;
+}
+
+.sensor-good {
+    color: green !important;
+    font-size: 30px !important;
+    margin-top: 5px !important;
+}
+
+.deleteButton {
+    background: none;
+    padding: 0px;
+    border: none;
+}
+
+#sensor-row {
+    margin-bottom: 30px;
+}
+
 /*==============Error 404 rules ==================*/
 
 @media only screen and (max-width: 1074px) {

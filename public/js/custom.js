@@ -1,5 +1,29 @@
 $(document).ready(function() {
-    
+
+    $('.form-check-input:checkbox').on('change', function() {
+
+        let dataID = $(this).attr('data-id');
+        let bridgeID = $(this).attr('data-bridge');
+        let answer = $(this).is(':checked') ? 1 : 0;
+
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/admin/assign',
+            data: { id: dataID, bid: bridgeID, checked: answer },
+            success: function(msg) {
+                console.log(msg);
+            },
+            error: function(msg) {
+                console.log(msg);
+            }
+        }); 
+
+    });
+
+
     /*==============Page Loader=======================*/
 
     $(".loader-wrapper").fadeOut("slow");

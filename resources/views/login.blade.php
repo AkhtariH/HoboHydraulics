@@ -30,12 +30,6 @@
                 <small class="force-white"><strong>Forgot password?</strong></small>
             </a>
         </div>
-
-        <div class="form-group">
-            <a href="{{ url('register') }}">
-                <small class="force-white"><strong>Need an account? Sign up!</strong></small>
-            </a>
-        </div>
         
     </form>
 @endsection
