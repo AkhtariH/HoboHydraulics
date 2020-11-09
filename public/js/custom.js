@@ -23,10 +23,44 @@ $(document).ready(function() {
 
     });
 
+    $('#thresholdModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var value = button.data('value');
+        var name = button.data('name');
+        var sensorID = button.data('id');
+
+        var modal = $(this);
+        modal.find('.modal-body input#threshold').val(value);
+        modal.find('.modal-body input#sensorID').val(sensorID);
+        modal.find('.modal-title').html("Change value of <strong>" + name + "</strong>");
+    });
+
+    $('#thresholdModal #submitThreshold').on('click', function() {
+        var dataID = $('#thresholdModal').find('.modal-body input#sensorID').val();
+        var newValue = $('#thresholdModal').find('.modal-body input#threshold').val();
+
+        $('#sensor-' + dataID).html("[" + newValue + "]");
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/admin/threshold',
+            data: { id: dataID, threshold_value: newValue },
+            success: function(msg) {
+                $('#thresholdModal').modal('hide');
+            }
+        }); 
+    });
+
 
     /*==============Page Loader=======================*/
-
-    $(".loader-wrapper").fadeOut("slow");
+    if (window.location.href.indexOf("admin") <= -1) {
+        $(".loader-wrapper").fadeOut("slow");
+    } else {
+        $(".loader-wrapper").hide();
+    }
+    
 
     /*===============Page Loader=====================*/
 

@@ -92,7 +92,6 @@ class BridgeController extends Controller
 
         if (Auth()->user()->isAdmin()) {
             $users = User::where('type', 'employee')->get();
-            // $userBridge = UserBridge::where('bridge_id', $id)->get();
 
             foreach ($users as $user) {
                 $userBridge = UserBridge::where([

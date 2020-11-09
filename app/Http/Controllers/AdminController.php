@@ -9,6 +9,7 @@ use Session;
 use App\Models\User;
 use App\Models\Bridge;
 use App\Models\UserBridge;
+use App\Models\Sensor;
 
 class AdminController extends Controller
 {
@@ -41,6 +42,20 @@ class AdminController extends Controller
             $user_bridge->delete();
         }
 
+
+        return response()->json(array('msg', 'worked'), 200);
+    }
+
+    public function threshold(Request $request) {
+        request()->validate([
+            'id' => 'required',
+            'threshold_value' => 'required',
+        ]);
+        
+        $data = collect(['threshold_value' => $request->input('threshold_value')]);
+
+        $sensor = Sensor::findOrFail($request->input('id'));
+        $sensor->update($data->toArray());
 
         return response()->json(array('msg', 'worked'), 200);
     }

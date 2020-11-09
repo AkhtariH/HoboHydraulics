@@ -9,6 +9,8 @@ class Sensor extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    
     protected $fillable = [
         'bridge_id',
         'name',

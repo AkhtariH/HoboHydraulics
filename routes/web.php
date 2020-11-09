@@ -32,3 +32,4 @@ Route::resource('admin/bridge', BridgeController::class)->names('admin.bridge');
 
 Route::get('admin', 'App\Http\Controllers\AdminController@index')->middleware('is_admin')->name('admin.index');
 Route::post('admin/assign', 'App\Http\Controllers\AdminController@assign')->middleware('is_admin')->name('admin.assign');
+Route::post('admin/threshold', 'App\Http\Controllers\AdminController@threshold')->middleware('is_admin')->name('admin.threshold');

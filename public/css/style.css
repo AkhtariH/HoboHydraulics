@@ -1952,19 +1952,27 @@ span.tag.label.label-info {
     color: rgb(66,139,202);
 }
 
-.edit-bridge {
+.edit-bridge, .edit-threshold {
     margin-left: 5px;
     font-size: 15px;
     display: inline-block;
     color: rgb(66,139,202);
 }
 
+.edit-threshold {
+    font-size: 12.5px !important;
+}
+
 .inline {
     display: inline;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .font-15 {
-    font-size: 20px;
+    font-size: 17px;
     cursor: pointer;
     -webkit-user-select: none;
   
