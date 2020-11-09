@@ -12,11 +12,17 @@
 
 ## ToDo
 
-- Add remaining tables and migrate [ ]
-- Add user roles [ ]
-- Add admin panel [ ]
-- Change [register] to [add user] in admin controller [ ]
-- ...
+- [ ] Add remaining tables and migrate
+- [X] Add user roles
+- [X] Add admin panel
+- [X] Change [register] to [add user] in admin controller
+- [ ] Employee/Admin should be able to change threshold_value of sensor
+- [ ] Create Employee/Customer view
+- [ ] Create index for admin panel
+- [ ] Refresh sensor value every 10 min
+- [ ] Give warning when threshold is exceeded + send mail
+
+- [ ] Add Manage sensors page
 
 ## Contributing
 

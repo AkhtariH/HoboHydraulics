@@ -1964,7 +1964,7 @@ span.tag.label.label-info {
 }
 
 .font-15 {
-    font-size: 15px;
+    font-size: 20px;
     cursor: pointer;
     -webkit-user-select: none;
   
@@ -1984,7 +1984,7 @@ span.tag.label.label-info {
 }
 
 input[type="checkbox"]:checked + .font-15 {
-    background-color: red;
+    background-color: #5bc0de;
 }
 
 .custom-header a{
