@@ -77,7 +77,27 @@
                                 </small>
                             </h5>
                             <p><small class="text-muted bc-description"><strong>Type:</strong> {{ $sensor->type }}</small></p>
-                            <p><small class="text-muted bc-description"><strong>Data:</strong> // TODO</small></p>
+                            <p>
+                                <small class="text-muted bc-description"><strong>Data:</strong>
+                                    @if(str_contains($sensor->data_attribute, ','))
+                                        @foreach (explode(',', $sensor->data_attribute) as $item)
+                                            [{{ json_decode($sensor->data_collection[0]->data, true)[$item] }}]
+                                        @endforeach
+                                    @else
+                                        [{{ json_decode($sensor->data_collection[0]->data, true)[$sensor->data_attribute] }}]
+                                    @endif
+
+                                    {{-- @foreach ($sensor->dataCollection as $data)
+                                        @if(str_contains($sensor->data_attribute, ','))
+                                            @foreach (explode(',', $sensor->data_attribute) as $item)
+                                                [{{ json_decode($data->data, true)[$item] }}]
+                                            @endforeach
+                                        @else
+                                            [{{ json_decode($data->data, true)[$sensor->data_attribute] }}]
+                                        @endif
+                                    @endforeach --}}
+                                </small>
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -16,12 +16,13 @@ class CreateSensorsTable extends Migration
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('bridge_id')->unsigned()->nullable();
+            $table->bigInteger('sensor_type_id')->unsigned();
             $table->string('name');
-            $table->string('type');
             $table->boolean('active');
             $table->double('threshold_value');
 
             $table->foreign('bridge_id')->references('id')->on('bridges')->onDelete('cascade');
+            $table->foreign('sensor_type_id')->references('id')->on('sensor_type')->onDelete('cascade');
         });
     }
 

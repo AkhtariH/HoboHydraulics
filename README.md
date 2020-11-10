@@ -16,6 +16,8 @@
 - [X] Add user roles
 - [X] Add admin panel
 - [X] Change [register] to [add user] in admin controller
+- [ ] Create response classes for BridgeController, UserController
+- [ ] Create isLoggedIn Middleware
 - [ ] Employee should be able to change threshold_value of sensor
 - [ ] Create Employee/Customer view
 - [ ] Create index for admin panel
