@@ -31,7 +31,7 @@
                                 <img src="{{ asset('img/default-avatar.jpg') }}" alt="profilePic" class="rounded-circle" width="50" height="50">
                             </div>
                             <div class="media-body pl-2">
-                                <h5 class="mt-0 mb-0"><strong><a href="{{ route('admin.bridge.show', $customer->id) }}" class="bootstrap-link">{{ $customer->name }}</a></strong> <a href="{{ route('admin.user.edit', $customer->id) }}"><span class="edit-user"><i class="fas fa-pencil-alt"></i></span></a></h5>
+                                <h5 class="mt-0 mb-0"><strong><a href="{{ route('admin.user.show', $customer->id) }}" class="bootstrap-link">{{ $customer->name }}</a></strong> <a href="{{ route('admin.user.edit', $customer->id) }}"><span class="edit-user"><i class="fas fa-pencil-alt"></i></span></a></h5>
                                 <p><small class="text-muted bc-description">{{ ucfirst($customer->type) }}</small></p>
                                 <p><small class="text-muted bc-description">{{ $customer->email }}</small></p>
                             </div>
@@ -64,7 +64,7 @@
                                 <img src="{{ asset('img/default-avatar.jpg') }}" alt="profilePic" class="rounded-circle" width="50" height="50">
                             </div>
                             <div class="media-body pl-2">
-                                <h5 class="mt-0 mb-0"><strong><a href="{{ route('admin.bridge.show', $employee->id) }}" class="bootstrap-link">{{ $employee->name }}</a></strong> <a href="{{ route('admin.user.edit', $employee->id) }}"><span class="edit-user"><i class="fas fa-pencil-alt"></i></span></a></h5>
+                                <h5 class="mt-0 mb-0"><strong><a href="{{ route('admin.user.show', $employee->id) }}" class="bootstrap-link">{{ $employee->name }}</a></strong> <a href="{{ route('admin.user.edit', $employee->id) }}"><span class="edit-user"><i class="fas fa-pencil-alt"></i></span></a></h5>
                                 <p><small class="text-muted bc-description">{{ ucfirst($employee->type) }}</small></p>
                                 <p><small class="text-muted bc-description">{{ $employee->email }}</small></p>
                             </div>
@@ -99,7 +99,7 @@
                                 <img src="{{ asset('img/default-avatar.jpg') }}" alt="profilePic" class="rounded-circle" width="50" height="50">
                             </div>
                             <div class="media-body pl-2">
-                                <h5 class="mt-0 mb-0"><strong><a href="{{ route('admin.bridge.show', $admin->id) }}" class="bootstrap-link">{{ $admin->name }}</a></strong> <a href="{{ route('admin.user.edit', $admin->id) }}"><span class="edit-user"><i class="fas fa-pencil-alt"></i></span></a></h5>
+                                <h5 class="mt-0 mb-0"><strong><a href="{{ route('admin.user.show', $admin->id) }}" class="bootstrap-link">{{ $admin->name }}</a></strong> <a href="{{ route('admin.user.edit', $admin->id) }}"><span class="edit-user"><i class="fas fa-pencil-alt"></i></span></a></h5>
                                 <p><small class="text-muted bc-description">{{ ucfirst($admin->type) }}</small></p>
                                 <p><small class="text-muted bc-description">{{ $admin->email }}</small></p>
                             </div>

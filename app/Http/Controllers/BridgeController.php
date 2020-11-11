@@ -75,7 +75,7 @@ class BridgeController extends Controller
         
         foreach ($sensors as $sensor) {
             $sensorData = SensorData::where('sensor_id', $sensor->id)
-                                    ->select('data', 'error', 'created_at')
+                                    ->select('data', 'error', 'created_at', 'threshold_value')
                                     ->latest()
                                     ->get();
             $dataArr = [];

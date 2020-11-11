@@ -95,7 +95,7 @@
                         <div class="media-body pl-2">
                             <h5 class="mt-0 mb-0">
                                 <strong style="font-size: 16px;font-weight: 500 !important;" class="{{ $sensor->data_collection[0]->error == true ? 'error' : '' }}">
-                                    <a data-toggle="modal" class="pointer" data-target="#sensorDetailModal" data-value="{{ implode(';', $sensor->data_collection) }}" data-name="{{ $sensor->name }}" data-attributes="{{ $sensor->data_attribute }}">
+                                    <a data-toggle="modal" id="sensorDetailTrigger-{{ $sensor->id }}" class="pointer" data-target="#sensorDetailModal" data-value="{{ implode(';', $sensor->data_collection) }}" data-name="{{ $sensor->name }}" data-currthreshold="{{ $sensor->threshold_value }}" data-type="{{ $sensor->type }}" data-attributes="{{ $sensor->data_attribute }}">
                                         {{ $sensor->name }} -
                                     </a>
                                     @if(str_contains($sensor->data_attribute, ','))

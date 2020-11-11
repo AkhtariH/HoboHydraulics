@@ -40,6 +40,7 @@ $(document).ready(function() {
         var newValue = $('#thresholdModal').find('.modal-body input#threshold').val();
 
         $('#sensor-' + dataID).html("[" + newValue + "]");
+        $('#sensorDetailTrigger-' + dataID).data('currthreshold', newValue);
         $.ajax({
             type: "POST",
             headers: {
@@ -58,6 +59,7 @@ $(document).ready(function() {
         var button = $(event.relatedTarget);
         var value = button.data('value'); // PASS ONLY LAST 10 DATA
         var name = button.data('name');
+        var currThreshold = button.data('currthreshold');
 
         var valueArr = value.split(';'); // TODO: If there is only one
         var lastDataAttribute = button.data('attributes');
@@ -74,22 +76,61 @@ $(document).ready(function() {
 
         modal.find('.modal-body').html(`
                         <p><strong>Current value: ${lastValue}</strong></p>
+                        <p><strong>Current threshold: ${currThreshold}</strong></p>
+                        <br>
                         <canvas id="myChart"></canvas>
                 `);
         modal.find('.modal-title').html("Details of <strong>" + name + "</strong>");
 
+        // Fill xAxisData and thresholdData
         var xAxisData = [];
+        var thresholdArr = [];
         var valueArrReverse = valueArr.reverse();
-        for(var i = 0; i < valueArrReverse.length; i++) {
-            var timestamp = JSON.parse(valueArrReverse[i]).created_at.split('T');
+        var valueArrReverseTen = valueArrReverse.slice(Math.max(valueArrReverse.length - 10, 0));
+        for(var i = 0; i < valueArrReverseTen.length; i++) {
+            var timestamp = JSON.parse(valueArrReverseTen[i]).created_at.split(' ');
             xAxisData[i] = timestamp[1];
+            thresholdArr[i] = JSON.parse(valueArrReverseTen[i]).threshold_value;
         }
-
+        
+        // Fill yAcisData with sensor data
         var yAxisData = [];
-        for(var i = 0; i < valueArrReverse.length; i++) {
-            var data = JSON.parse(valueArrReverse[i]).data[lastDataAttribute]; // TODO: ONLY IF ITS HUMIDIY
+        for(var i = 0; i < valueArrReverseTen.length; i++) {
+            var data = JSON.parse(valueArrReverseTen[i]).data[lastDataAttribute]; // TODO: ONLY IF ITS HUMIDIY
             yAxisData[i] = data;
         }
+
+        // Get all sensor data that exceeded threshold
+        var errorData = [];
+        for(var i = 0; i < valueArrReverse.length; i++) {
+            var timestamp = JSON.parse(valueArrReverse[i]).created_at;
+            var thresholdValue = JSON.parse(valueArrReverse[i]).threshold_value;
+            var sensorValue = JSON.parse(valueArrReverse[i]).data[lastDataAttribute];
+
+            if (sensorValue >= thresholdValue) {
+                var errData = {
+                    time: timestamp,
+                    sensor: sensorValue,
+                    threshold: thresholdValue
+                };
+
+                errorData.push(errData);
+            }
+        }
+
+        if (errorData.length > 0) {
+            modal.find('.modal-body').append(`
+                <br/>
+                <p><strong>History:</strong></p>
+            `);
+
+            errorData.forEach((err) =>{
+                modal.find('.modal-body').append(`
+                    <p><strong>${err.time}:</strong> ${err.sensor} (Threshold: ${err.threshold})</p>
+                `);              
+            });
+        }
+
 
         var ctx = document.getElementById('myChart').getContext('2d');
         var chart = new Chart(ctx, {
@@ -101,13 +142,24 @@ $(document).ready(function() {
                 labels: xAxisData,
                 datasets: [{
                     label: 'Humidity',
+                    borderColor: 'rgb(52, 152, 219)',
+                    data: yAxisData,
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: 'rgb(52, 152, 219)',
+                },
+                {
+                    label: 'Threshold',
                     borderColor: 'rgb(255, 99, 132)',
-                    data: yAxisData
+                    data: thresholdArr,
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: 'rgb(255, 99, 132)',
                 }]
             },
         
             // Configuration options go here
-            options: {}
+            options: { }
         });
     });
 

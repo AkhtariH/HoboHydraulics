@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Bridge;
+use App\Models\UserBridge;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -11,7 +13,7 @@ class UserController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -69,7 +71,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        // Show user with all their assigned bridges
+        $user = User::findOrFail($id);
+        $bridges = User::join('user_bridge', 'users.id', '=', 'user_bridge.user_id')
+                        ->join('bridges', 'user_bridge.bridge_id', '=', 'bridges.id')
+                        ->where('users.id', $id)
+                        ->select('users.*', 'bridges.name', 'bridges.adress', 'bridges.supervisor')
+                        ->get();
+
+        return view('admin.user.show', compact('user', 'bridges'));
     }
 
     /**

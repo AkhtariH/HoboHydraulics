@@ -17,22 +17,23 @@
 - [X] Add user roles
 - [X] Add admin panel
 - [X] Change [register] to [add user] in admin controller
-- [ ] Create user show view
+- [X] Create user show view
 - [ ] Create response classes for BridgeController, UserController
 - [ ] Create isLoggedIn Middleware
 - [ ] Employee should be able to change threshold_value of sensor
 - [ ] Create Employee/Customer view
 - [ ] Create index for admin panel
-- [ ] Refresh sensor value every 10 min
-- [ ] Give warning when threshold is exceeded + send mail
+- [ ] Refresh sensor page every minute
+- [ ] Give warning when threshold is exceeded for Color sensor
 - [ ] Create DashboardController
-- [ ] Sends email when user is registered
+- [ ] Sends email when user is registered and when threshold is exceeded
 
 
 ### Version 2.0
 
 - [ ] Add Manage sensors page
 - [ ] Add ability to change date and time for graph in sensor detail page
+- [ ] Instead of refreshing page, refresh only sensor values
 
 ## Contributing
 
@@ -44,8 +45,8 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+...
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+...
