@@ -2052,6 +2052,10 @@ input[type="checkbox"]:checked + .font-15 {
     color: red !important;
 }
 
+.widget-header {
+    margin-top: 30px;
+}
+
 /*==============Error 404 rules ==================*/
 
 @media only screen and (max-width: 1074px) {
