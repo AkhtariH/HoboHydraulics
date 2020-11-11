@@ -11,6 +11,9 @@ use App\Models\Bridge;
 use App\Models\UserBridge;
 use App\Models\Sensor;
 
+use App\Http\Requests\AdminAssignRequest;
+use App\Http\Requests\ThresholdRequest;
+
 class AdminController extends Controller
 {
     public function __construct() {
@@ -21,12 +24,8 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function assign(Request $request) {
-        request()->validate([
-            'id' => 'required',
-            'bid' => 'required',
-            'checked' => 'required',
-        ]);
+    public function assign(AdminAssignRequest $request) {
+        $request->validated();
         
         $data = collect(['user_id' => $request->input('id')]);
         $data->put('bridge_id', $request->input('bid'));
@@ -46,11 +45,8 @@ class AdminController extends Controller
         return response()->json(array('msg', 'Success!'), 200);
     }
 
-    public function threshold(Request $request) {
-        request()->validate([
-            'id' => 'required',
-            'threshold_value' => 'required',
-        ]);
+    public function threshold(ThresholdRequest $request) {
+        $request->validated();
         
         $data = collect(['threshold_value' => $request->input('threshold_value')]);
 

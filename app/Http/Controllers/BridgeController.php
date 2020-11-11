@@ -10,6 +10,9 @@ use App\Models\UserBridge;
 use App\Models\SensorData;
 use Validator,Redirect,Response;
 
+use App\Http\Requests\BridgeStoreRequest;
+use App\Http\Requests\BridgeUpdateRequest;
+
 class BridgeController extends Controller
 {
     public function __construct() {
@@ -43,14 +46,9 @@ class BridgeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BridgeStoreRequest $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'adress' => 'required',
-            'supervisor' => 'required',
-            'bridgeHash' => 'required|unique:bridges'
-        ]);
+        $request->validated();
 
         $data = $request->all();
         Bridge::create($data);
@@ -129,14 +127,9 @@ class BridgeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BridgeUpdateRequest $request, $id)
     {
-        request()->validate([
-            'name' => 'required',
-            'adress' => 'required',
-            'supervisor' => 'required',
-            'bridgeHash' => 'required'
-        ]);
+        $request->validated();
 
         $data = $request->all();
 
