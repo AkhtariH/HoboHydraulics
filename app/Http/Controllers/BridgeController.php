@@ -12,6 +12,10 @@ use Validator,Redirect,Response;
 
 class BridgeController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -76,6 +80,7 @@ class BridgeController extends Controller
                                     ->get();
             $dataArr = [];
             foreach ($sensorData as $data) {
+                $data->data = json_decode($data->data, true);
                 array_push($dataArr, $data);
             }
             $sensor->data_collection = $dataArr;

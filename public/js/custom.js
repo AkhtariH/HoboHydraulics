@@ -53,6 +53,64 @@ $(document).ready(function() {
         }); 
     });
 
+    $('#sensorDetailModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var button = $(event.relatedTarget);
+        var value = button.data('value'); // PASS ONLY LAST 10 DATA
+        var name = button.data('name');
+
+        var valueArr = value.split(';'); // TODO: If there is only one
+        var lastDataAttribute = button.data('attributes');
+
+        var lastValue = "";
+        if (lastDataAttribute.includes(',')) {
+            lastDataAttributes = lastDataAttribute.split(',');
+            $.each( lastDataAttributes, function( index, value ){
+                lastValue += JSON.parse(valueArr[0]).data[value] + " ";
+            });
+        } else {
+            lastValue = JSON.parse(valueArr[0]).data[lastDataAttribute];
+        }
+
+        modal.find('.modal-body').html(`
+                        <p><strong>Current value: ${lastValue}</strong></p>
+                        <canvas id="myChart"></canvas>
+                `);
+        modal.find('.modal-title').html("Details of <strong>" + name + "</strong>");
+
+        var xAxisData = [];
+        var valueArrReverse = valueArr.reverse();
+        for(var i = 0; i < valueArrReverse.length; i++) {
+            var timestamp = JSON.parse(valueArrReverse[i]).created_at.split('T');
+            xAxisData[i] = timestamp[1];
+        }
+
+        var yAxisData = [];
+        for(var i = 0; i < valueArrReverse.length; i++) {
+            var data = JSON.parse(valueArrReverse[i]).data[lastDataAttribute]; // TODO: ONLY IF ITS HUMIDIY
+            yAxisData[i] = data;
+        }
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+        
+            // The data for our dataset
+            data: {
+                labels: xAxisData,
+                datasets: [{
+                    label: 'Humidity',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: yAxisData
+                }]
+            },
+        
+            // Configuration options go here
+            options: {}
+        });
+    });
+
 
     /*==============Page Loader=======================*/
     if (window.location.href.indexOf("admin") <= -1) {

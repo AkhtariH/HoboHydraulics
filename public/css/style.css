@@ -2032,6 +2032,12 @@ input[type="checkbox"]:checked + .font-15 {
     margin-top: 5px !important;
 }
 
+.sensor-error {
+    color: red !important;
+    font-size: 30px !important;
+    margin-top: 5px !important;
+}
+
 .deleteButton {
     background: none;
     padding: 0px;
@@ -2040,6 +2046,10 @@ input[type="checkbox"]:checked + .font-15 {
 
 #sensor-row {
     margin-bottom: 30px;
+}
+
+.error {
+    color: red !important;
 }
 
 /*==============Error 404 rules ==================*/

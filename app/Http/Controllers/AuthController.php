@@ -12,6 +12,7 @@ use Session;
 
 class AuthController extends Controller
 {
+    
     public function index() {
         if (Auth::check()){
             return Redirect::to('dashboard');           
@@ -41,19 +42,6 @@ class AuthController extends Controller
         return Redirect::to('login')->withErrors(['Entered credetnials are wrong!']);
     }
 
-    public function postRegister(Request $request) {
-        request()->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
-        ]);
-
-        $data = $request->all();
-
-        $check = $this->create($data);
-
-        return Redirect::to('dashboard')->withSuccess('You have been logged in!');
-    }
 
     public function dashboard() {
         if (Auth::check()) {

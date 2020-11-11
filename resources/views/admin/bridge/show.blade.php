@@ -40,6 +40,27 @@
         </div>
       </div>
 
+      <div class="modal fade" id="sensorDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>Current value: <span id="currVal"></span></p>
+                <br>
+                <p>Graph</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <!--Content types-->
     <h4 class="inline">Bridge information</h4>
     <a href="{{ route('admin.bridge.edit', $bridge->id) }}"><span class="edit-bridge"><i class="fas fa-pencil-alt"></i></span></a>
@@ -65,37 +86,34 @@
                 <div class="bg-white border shadow">
                     <div class="media p-4">
                         <div class="align-self-center mr-3 rounded-circle notify-icon">
-                            <i class="far fa-check-circle sensor-good"></i>
+                            @if ($sensor->data_collection[0]->error == false)
+                                <i class="far fa-check-circle sensor-good"></i>
+                            @else
+                                <i class="fas fa-exclamation-triangle sensor-error"></i>
+                            @endif
                         </div>
                         <div class="media-body pl-2">
-                            <h5 class="mt-0 mb-0"><strong>{{ $sensor->name }}</strong>
-                                <small style="margin-left: 10px;">
-                                    <span id="sensor-{{ $sensor->id }}">[{{ $sensor->threshold_value }}]</span>
-                                    <a data-toggle="modal" class="pointer" data-target="#thresholdModal" data-value="{{ $sensor->threshold_value }}" data-id="{{ $sensor->id }}" data-name="{{ $sensor->name }}">
-                                        <span class="edit-threshold"><i class="fas fa-pencil-alt"></i></span>
+                            <h5 class="mt-0 mb-0">
+                                <strong style="font-size: 16px;font-weight: 500 !important;" class="{{ $sensor->data_collection[0]->error == true ? 'error' : '' }}">
+                                    <a data-toggle="modal" class="pointer" data-target="#sensorDetailModal" data-value="{{ implode(';', $sensor->data_collection) }}" data-name="{{ $sensor->name }}" data-attributes="{{ $sensor->data_attribute }}">
+                                        {{ $sensor->name }} -
                                     </a>
-                                </small>
+                                    @if(str_contains($sensor->data_attribute, ','))
+                                        @foreach (explode(',', $sensor->data_attribute) as $item)
+                                            [{{ $sensor->data_collection[0]->data[$item] }}]
+                                        @endforeach
+                                    @else
+                                        {{ $sensor->data_collection[0]->data[$sensor->data_attribute] }}
+                                    @endif
+                                </strong>
                             </h5>
                             <p><small class="text-muted bc-description"><strong>Type:</strong> {{ $sensor->type }}</small></p>
                             <p>
-                                <small class="text-muted bc-description"><strong>Data:</strong>
-                                    @if(str_contains($sensor->data_attribute, ','))
-                                        @foreach (explode(',', $sensor->data_attribute) as $item)
-                                            [{{ json_decode($sensor->data_collection[0]->data, true)[$item] }}]
-                                        @endforeach
-                                    @else
-                                        [{{ json_decode($sensor->data_collection[0]->data, true)[$sensor->data_attribute] }}]
-                                    @endif
-
-                                    {{-- @foreach ($sensor->dataCollection as $data)
-                                        @if(str_contains($sensor->data_attribute, ','))
-                                            @foreach (explode(',', $sensor->data_attribute) as $item)
-                                                [{{ json_decode($data->data, true)[$item] }}]
-                                            @endforeach
-                                        @else
-                                            [{{ json_decode($data->data, true)[$sensor->data_attribute] }}]
-                                        @endif
-                                    @endforeach --}}
+                                <small class="text-muted bc-description">
+                                    Threshold: <span id="sensor-{{ $sensor->id }}">[{{ $sensor->threshold_value }}]</span>
+                                    <a data-toggle="modal" class="pointer" data-target="#thresholdModal" data-value="{{ $sensor->threshold_value }}" data-id="{{ $sensor->id }}" data-name="{{ $sensor->name }}">
+                                        <span class="edit-threshold"><i class="fas fa-pencil-alt"></i></span>
+                                    </a>
                                 </small>
                             </p>
                         </div>

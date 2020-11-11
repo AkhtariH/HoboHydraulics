@@ -22,14 +22,14 @@ Route::get('/', function () {
 
 // Middleware login
 
-Route::get('login', 'App\Http\Controllers\AuthController@index');
+Route::get('login', 'App\Http\Controllers\AuthController@index')->name('login');
 Route::post('post-login', 'App\Http\Controllers\AuthController@postLogin');
 Route::get('dashboard', 'App\Http\Controllers\AuthController@dashboard')->name('show.dashboard');
 Route::get('logout', 'App\Http\Controllers\AuthController@logout')->name('user.logout');
 
-Route::resource('admin/user', UserController::class)->middleware('is_admin')->names('admin.user');
-Route::resource('admin/bridge', BridgeController::class)->names('admin.bridge');
+Route::resource('admin/user', UserController::class)->middleware(['auth', 'is_admin'])->names('admin.user');
+Route::resource('admin/bridge', BridgeController::class)->middleware('auth')->names('admin.bridge');
 
-Route::get('admin', 'App\Http\Controllers\AdminController@index')->middleware('is_admin')->name('admin.index');
-Route::post('admin/assign', 'App\Http\Controllers\AdminController@assign')->middleware('is_admin')->name('admin.assign');
-Route::post('admin/threshold', 'App\Http\Controllers\AdminController@threshold')->middleware('is_admin')->name('admin.threshold');
+Route::get('admin', 'App\Http\Controllers\AdminController@index')->middleware(['auth', 'is_admin'])->name('admin.index');
+Route::post('admin/assign', 'App\Http\Controllers\AdminController@assign')->middleware(['auth', 'is_admin'])->name('admin.assign');
+Route::post('admin/threshold', 'App\Http\Controllers\AdminController@threshold')->middleware(['auth', 'is_admin'])->name('admin.threshold');

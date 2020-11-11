@@ -43,7 +43,7 @@ class AdminController extends Controller
         }
 
 
-        return response()->json(array('msg', 'worked'), 200);
+        return response()->json(array('msg', 'Success!'), 200);
     }
 
     public function threshold(Request $request) {
@@ -57,6 +57,6 @@ class AdminController extends Controller
         $sensor = Sensor::findOrFail($request->input('id'));
         $sensor->update($data->toArray());
 
-        return response()->json(array('msg', 'worked'), 200);
+        return response()->json(array('msg', 'Success!'), 200);
     }
 }

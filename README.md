@@ -11,11 +11,13 @@
 ...
 
 ## ToDo
+### Version 1.0
 
 - [X] Add remaining tables and migrate
 - [X] Add user roles
 - [X] Add admin panel
 - [X] Change [register] to [add user] in admin controller
+- [ ] Create user show view
 - [ ] Create response classes for BridgeController, UserController
 - [ ] Create isLoggedIn Middleware
 - [ ] Employee should be able to change threshold_value of sensor
@@ -23,8 +25,14 @@
 - [ ] Create index for admin panel
 - [ ] Refresh sensor value every 10 min
 - [ ] Give warning when threshold is exceeded + send mail
+- [ ] Create DashboardController
+- [ ] Sends email when user is registered
+
+
+### Version 2.0
 
 - [ ] Add Manage sensors page
+- [ ] Add ability to change date and time for graph in sensor detail page
 
 ## Contributing
 
