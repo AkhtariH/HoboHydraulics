@@ -145,6 +145,11 @@
                         @if (Route::is('admin.*'))
                                 <ul class="sidebar-menu mt-4 mb-4">
                                     <li class="parent">
+                                        <a href="{{ route('admin.index') }}" class=""><i class="fas fa-tachometer-alt mr-3"></i>
+                                            <span class="none">Admin Dashboard</span>
+                                        </a>
+                                    </li>
+                                    <li class="parent">
                                         <a href="{{ url('admin/user') }}" class=""><i class="fas fa-users mr-3"></i>
                                             <span class="none">Manage users</span>
                                         </a>
