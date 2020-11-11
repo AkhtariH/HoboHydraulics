@@ -8,6 +8,9 @@ use App\Models\Bridge;
 use App\Models\UserBridge;
 use Illuminate\Support\Facades\Hash;
 
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+
 class UserController extends Controller
 {
     public function __construct() {
@@ -44,14 +47,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'type' => 'required'
-        ]);
+        $request->validated();
 
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
@@ -100,13 +98,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'email|required',
-            'type' => 'required'
-        ]);
+        $request->validated();
 
         $data = $request->except('password');
         if ($request->has('password') && $request->password != '') {

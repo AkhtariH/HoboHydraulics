@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
 
+use App\Http\Requests\AuthLoginRequest;
+
 class AuthController extends Controller
 {
     
@@ -25,11 +27,8 @@ class AuthController extends Controller
         return view('register');
     }
 
-    public function postLogin(Request $request) {
-        request()->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
+    public function postLogin(AuthLoginRequest $request) {
+        $request->validated();
 
         $credentials = $request->only('email', 'password');
 
