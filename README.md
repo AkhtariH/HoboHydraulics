@@ -21,7 +21,7 @@
 - [X] Create request classes for BridgeController, UserController
 - [X] Create index for admin panel
 - [ ] Create DashboardController
-- [ ] Paginate..
+- [ ] Paginate for Bridge views
 - [ ] Create Employee/Customer view
 - [ ] Employee should be able to change threshold_value of sensor
 - [ ] Create isLoggedIn Middleware
