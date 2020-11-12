@@ -27,6 +27,20 @@ class BridgeController extends Controller
     public function index()
     {
         $bridges = Bridge::latest()->paginate(9);
+        foreach($bridges as $bridge) {
+            $sensors = $this->getSensorsOfBridge($bridge->id);
+            
+            foreach($sensors as $sensor) {
+                if ($sensor->data_collection[0]->error == true) {
+                    $bridge->error = true;
+                    break;
+                } else {
+                    $bridge->error = false;
+                }
+            }
+        }
+        
+
         return view('admin.bridge.index', compact('bridges'));
     }
 
@@ -65,25 +79,8 @@ class BridgeController extends Controller
     public function show($id)
     {
         $bridge = Bridge::findOrFail($id);
-        $sensors = Sensor::join('sensor_type', 'sensors.sensor_type_id', '=', 'sensor_type.id')
-                        ->where('bridge_id', $id)
-                        ->select('sensors.*', 'sensor_type.type', 'sensor_type.data_attribute')
-                        ->get();
-        
-        
-        foreach ($sensors as $sensor) {
-            $sensorData = SensorData::where('sensor_id', $sensor->id)
-                                    ->select('data', 'error', 'created_at', 'threshold_value')
-                                    ->latest()
-                                    ->get();
-            $dataArr = [];
-            foreach ($sensorData as $data) {
-                $data->data = json_decode($data->data, true);
-                array_push($dataArr, $data);
-            }
-            $sensor->data_collection = $dataArr;
-        }
 
+        $sensors = $this->getSensorsOfBridge($id);
 
         if (Auth()->user()->isAdmin()) {
             $users = User::where('type', 'employee')->get();
@@ -106,6 +103,29 @@ class BridgeController extends Controller
         }
 
         return view('admin.bridge.show', compact('bridge', 'sensors'));
+    }
+
+    public function getSensorsOfBridge($id) {
+        $sensors = Sensor::join('sensor_type', 'sensors.sensor_type_id', '=', 'sensor_type.id')
+            ->where('bridge_id', $id)
+            ->select('sensors.*', 'sensor_type.type', 'sensor_type.data_attribute')
+            ->get();
+
+
+        foreach ($sensors as $sensor) {
+            $sensorData = SensorData::where('sensor_id', $sensor->id)
+                                ->select('data', 'error', 'created_at', 'threshold_value')
+                                ->latest()
+                                ->get();
+            $dataArr = [];
+            foreach ($sensorData as $data) {
+                $data->data = json_decode($data->data, true);
+                array_push($dataArr, $data);
+            }
+            $sensor->data_collection = $dataArr;
+        }
+
+        return $sensors;
     }
 
     /**
