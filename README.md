@@ -21,6 +21,7 @@
 - [X] Create request classes for BridgeController, UserController
 - [X] Create index for admin panel
 - [ ] Create DashboardController
+- [ ] Paginate..
 - [ ] Create Employee/Customer view
 - [ ] Employee should be able to change threshold_value of sensor
 - [ ] Create isLoggedIn Middleware
@@ -32,6 +33,7 @@
 ### Version 2.0
 
 - [ ] Add Manage sensors page
+- [ ] Change threshold controller to SensorController
 - [ ] Add ability to change date and time for graph in sensor detail page
 - [ ] Instead of refreshing page, refresh only sensor values
 - [ ] Dynamic locations map

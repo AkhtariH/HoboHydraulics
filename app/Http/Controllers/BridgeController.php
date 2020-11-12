@@ -83,7 +83,7 @@ class BridgeController extends Controller
         $sensors = $this->getSensorsOfBridge($id);
 
         if (Auth()->user()->isAdmin()) {
-            $users = User::where('type', 'employee')->get();
+            $users = User::where('type', '=', 'employee')->orWhere('type', '=', 'admin')->get();
 
             foreach ($users as $user) {
                 $userBridge = UserBridge::where([
