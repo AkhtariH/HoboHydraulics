@@ -20,7 +20,7 @@
 - [X] Create user show view
 - [X] Create request classes for BridgeController, UserController
 - [X] Create index for admin panel
-- [ ] Create DashboardController
+- [X] Create DashboardController
 - [ ] Paginate for Bridge views
 - [ ] Create Employee/Customer view
 - [ ] Employee should be able to change threshold_value of sensor
