@@ -146,7 +146,7 @@
         @endif
     </div>
     
-    <h4 class="mb-2">Bridge location</h4>
+    <h4 class="mb-2">Bridge location //TODO</h4>
     <hr/>
     <!--Google world-->
     <div class="mt-1 mb-3 p-3 button-container bg-white shadow-sm border">
