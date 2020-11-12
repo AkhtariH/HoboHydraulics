@@ -42,16 +42,6 @@ class AuthController extends Controller
     }
 
 
-    public function dashboard() {
-        if (Auth::check()) {
-            $bridges = Bridge::all();
-            
-            return view('dashboard', compact('bridges'));
-        }
-
-        return Redirect::to('login')->withErrors(['You have to be logged in!']);
-    }
-
     public function create(array $data) {
         return User::create([
             'name' => $data['name'],

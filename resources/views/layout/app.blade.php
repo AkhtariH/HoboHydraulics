@@ -59,7 +59,7 @@
             <!--Logo-->
             <div class="col-sm-3 pl-0 text-center header-logo">
                 <div class="bg-theme mr-3 pt-3 pb-2 mb-0">
-                    <h3 class="logo"><a href="{{ route('show.dashboard') }}" class="text-secondary logo"><i class="fa fa-dashboard"></i> HoboHydrauliek<span class="small"> Dashboard</span></a></h3>
+                    <h3 class="logo"><a href="{{ route('dashboard') }}" class="text-secondary logo"><i class="fa fa-dashboard"></i> HoboHydrauliek<span class="small"> Dashboard</span></a></h3>
                 </div>
             </div>
             <!--Logo-->
@@ -107,23 +107,24 @@
 
                     <!--Sidebar Navigation Menu-->
                     <div class="sidebar-menu-container">
-                        @if (Route::is('show.dashboard'))
-                                @if (Auth()->user()->isAdmin())
-                                    <ul class="sidebar-menu mt-4 mb-4">
-                                        <li class="parent">
-                                            <a href="{{ route('admin.index') }}" class=""><i class="fas fa-toolbox mr-3"></i>
-                                                <span class="none">Admin Panel</span>
-                                            </a>
-                                        </li>
-                                    </ul>                            
-                                @endif
+                        @if (Route::is('dashboard.*') || Route::is('dashboard'))
+                            @if (Auth()->user()->isAdmin())
                                 <ul class="sidebar-menu mt-4 mb-4">
                                     <li class="parent">
-                                        <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                                            <span class="none">My Profile</span>
+                                        <a href="{{ route('admin.index') }}" class=""><i class="fas fa-toolbox mr-3"></i>
+                                            <span class="none">Admin Panel</span>
                                         </a>
                                     </li>
-                                    <li class="parent">
+                                </ul>                            
+                            @endif
+                            <ul class="sidebar-menu mt-4 mb-4">
+                                <li class="parent">
+                                    <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                        <span class="none">My Profile</span>
+                                    </a>
+                                </li>
+                                <li class="parent">
+                                    @if (Route::is('dashboard'))
                                         <a href="#" onclick="toggle_menu('dashboard'); return false" class=""><i class="fa fa-dashboard mr-3"> </i>
                                             <span class="none">Bridges<i class="fa fa-angle-down pull-right align-bottom"></i></span>
                                         </a>
@@ -132,13 +133,18 @@
                                                 <li class="child"><a href="" class="ml-4"><i class="fa fa-angle-right mr-2"></i>{{ $bridge->name }}</a></li>
                                             @endforeach
                                         </ul>
-                                    </li>
-                                    <li class="parent">
-                                        <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                                            <span class="none">Tasks</span>
+                                    @else
+                                        <a href="{{ route('dashboard') }}" class=""><i class="fa fa-dashboard mr-3"> </i>
+                                            <span class="none">Bridges</span>
                                         </a>
-                                    </li>
-                                </ul>
+                                    @endif
+                                </li>
+                                <li class="parent">
+                                    <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                        <span class="none">Tasks</span>
+                                    </a>
+                                </li>
+                            </ul>
                         @endif
 
                         {{-- Admin Panel --}}
@@ -164,7 +170,7 @@
                             </ul>
                             <ul class="sidebar-menu mt-4 mb-4">
                                 <li class="parent">
-                                    <a href="{{ route('show.dashboard') }}" class=""><i class="fas fa-chevron-left mr-3"></i>
+                                    <a href="{{ route('dashboard') }}" class=""><i class="fas fa-chevron-left mr-3"></i>
                                         <span class="none">Dashboard</span>
                                     </a>
                                 </li>

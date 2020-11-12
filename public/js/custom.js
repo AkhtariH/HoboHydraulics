@@ -46,7 +46,7 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '/admin/threshold',
+            url: '/threshold',
             data: { id: dataID, threshold_value: newValue },
             success: function(msg) {
                 $('#thresholdModal').modal('hide');

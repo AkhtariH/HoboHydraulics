@@ -63,7 +63,7 @@
 
     <!--Content types-->
     <h4 class="inline">Bridge information</h4>
-    <a href="{{ route('admin.bridge.edit', $bridge->id) }}"><span class="edit-bridge"><i class="fas fa-pencil-alt"></i></span></a>
+    <a href="{{ route('admin.bridge.edit', $bridge->id) }}"></a>
     <hr/>
     <div class="mt-1 mb-5 button-container">
         <div class="card shadow-sm">
@@ -125,24 +125,6 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3 user-card">
             <p>There are no sensors connected to the bridge!</p>
         </div>
-        @endif
-    </div>
-
-    <h4>Assign employees</h4>
-    <hr/>
-    <div class="row pl-0" id="sensor-row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3 user-card">
-        @if (!$users->isEmpty())
-            @foreach ($users as $user)
-
-                <input type="checkbox" class="form-check-input hidden" id="user-{{ $user->id }}" data-id="{{ $user->id }}" data-bridge="{{ $bridge->id }}" {{ $user->checked == true ? "checked" : "" }}>
-                <label for="user-{{ $user->id }}" class="badge badge-secondary font-15">{{ $user->name }}</label>
-            @endforeach
-        </div>
-        @else  
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3 user-card">
-                <p>No users found!</p>
-            </div>
         @endif
     </div>
     

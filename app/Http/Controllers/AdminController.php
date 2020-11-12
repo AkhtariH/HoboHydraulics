@@ -14,7 +14,6 @@ use App\Models\SensorData;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\AdminAssignRequest;
-use App\Http\Requests\ThresholdRequest;
 
 class AdminController extends Controller
 {
@@ -62,17 +61,6 @@ class AdminController extends Controller
             $user_bridge->delete();
         }
 
-
-        return response()->json(array('msg', 'Success!'), 200);
-    }
-
-    public function threshold(ThresholdRequest $request) {
-        $request->validated();
-        
-        $data = collect(['threshold_value' => $request->input('threshold_value')]);
-
-        $sensor = Sensor::findOrFail($request->input('id'));
-        $sensor->update($data->toArray());
 
         return response()->json(array('msg', 'Success!'), 200);
     }
