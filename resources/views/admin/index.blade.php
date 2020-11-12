@@ -53,6 +53,11 @@
                         <div class="media-body pl-2">
                             <h3 class="mt-0 mb-0"><strong>5</strong></h3>
                             <p><small class="text-muted bc-description">Total registered users</small></p>
+                            <p class="see-more">
+                                <small class="text-muted bc-description">
+                                    <a href="{{ route('admin.user.index') }}">Manage users <i class="fas fa-arrow-circle-right align-middle see-more-arrow"></i></a>
+                                </small>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -69,6 +74,11 @@
                         <div class="media-body pl-2">
                             <h3 class="mt-0 mb-0"><strong>2</strong></h3>
                             <p><small class="text-muted bc-description">Total registered bridges</small></p>
+                            <p class="see-more">
+                                <small class="text-muted bc-description">
+                                    <a href="{{ route('admin.bridge.index') }}">Manage bridges <i class="fas fa-arrow-circle-right align-middle see-more-arrow"></i></a>
+                                </small>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -77,14 +87,26 @@
     </div>
     <!-- Skill bars-->
     <div class="mt-1 mb-3 p-3 button-container bg-white border shadow-sm">
-        <h6 class="mb-2"></h6>
+        <h6 class="mb-2">Bridges assigned</h6>
         
-        <p class="mb-2 mt-3">0% <span class="pull-right">70%</span></p>
+        <p class="mb-2 mt-3">0% <span class="pull-right">100%</span></p>
         <div class="progress mb-4" style="height: 7px;">
-            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="70" style="width: 70%"  aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="70" style="width: 70%; "  aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
     <!--/Skill bars -->
+
+    <div class="row mt-3">
+        <div class="col-sm-12">
+            <!--Jvector world map-->
+            <div class="mt-1 mb-3 p-3 button-container bg-white shadow-sm border">
+                <h6 class="mb-3">Bridge Locations</h6><hr>
+                <div id="NLMap" style="width: 100%; height: 500px"></div>
+                
+            </div>
+            <!--/Jvector world map-->
+        </div>
+    </div>
 
 
 @endsection
