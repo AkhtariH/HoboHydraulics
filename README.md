@@ -21,10 +21,11 @@
 - [X] Create request classes for BridgeController, UserController
 - [X] Create index for admin panel
 - [X] Create DashboardController
+- [X] Create Employee view
+- [X] Employee should be able to change threshold_value of sensor
+- [X] Add auth Middleware
 - [ ] Paginate for Bridge views
-- [ ] Create Employee/Customer view
-- [ ] Employee should be able to change threshold_value of sensor
-- [ ] Create isLoggedIn Middleware
+- [ ] Create Customer view (Cant change threhsold value)
 - [ ] Refresh sensor page every minute
 - [ ] Give warning when threshold is exceeded for Color sensor
 - [ ] Sends email when user is registered and when threshold is exceeded
