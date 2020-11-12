@@ -34,6 +34,7 @@
 - [ ] Add Manage sensors page
 - [ ] Add ability to change date and time for graph in sensor detail page
 - [ ] Instead of refreshing page, refresh only sensor values
+- [ ] Dynamic locations map
 
 ## Contributing
 

@@ -21,7 +21,7 @@
                             <i class="fa fa-check-square"></i>
                         </div>
                         <div class="media-body pl-2">
-                            <h3 class="mt-0 mb-0"><strong>5</strong></h3>
+                            <h3 class="mt-0 mb-0"><strong>{{ $data['sensor_count'] }}</strong></h3>
                             <p><small class="text-muted bc-description">Total Installed Devices</small></p>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                             <i class="fas fa-exclamation-triangle"></i>
                         </div>
                         <div class="media-body pl-2">
-                            <h3 class="mt-0 mb-0"><strong>2</strong></h3>
+                            <h3 class="mt-0 mb-0"><strong>{{ $data['sensor_data_count'] }}</strong></h3>
                             <p><small class="text-muted bc-description">Replacements Needed</small></p>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="media-body pl-2">
-                            <h3 class="mt-0 mb-0"><strong>5</strong></h3>
+                            <h3 class="mt-0 mb-0"><strong>{{ $data['user_count'] }}</strong></h3>
                             <p><small class="text-muted bc-description">Total registered users</small></p>
                             <p class="see-more">
                                 <small class="text-muted bc-description">
@@ -72,7 +72,7 @@
                               </svg>
                         </div>
                         <div class="media-body pl-2">
-                            <h3 class="mt-0 mb-0"><strong>2</strong></h3>
+                            <h3 class="mt-0 mb-0"><strong>{{ $data['bridge_count'] }}</strong></h3>
                             <p><small class="text-muted bc-description">Total registered bridges</small></p>
                             <p class="see-more">
                                 <small class="text-muted bc-description">
@@ -87,11 +87,11 @@
     </div>
     <!-- Skill bars-->
     <div class="mt-1 mb-3 p-3 button-container bg-white border shadow-sm">
-        <h6 class="mb-2">Bridges assigned</h6>
+        <h6 class="mb-2">Bridges assigned {{ $data['assigned_bridges_count'] . '/' . $data['bridge_count']}}</h6>
         
         <p class="mb-2 mt-3">0% <span class="pull-right">100%</span></p>
         <div class="progress mb-4" style="height: 7px;">
-            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="70" style="width: 70%; "  aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ $data['assigned_bridges_percentage'] }}" style="width: {{ $data['assigned_bridges_percentage'] }}%; "  aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
     <!--/Skill bars -->
