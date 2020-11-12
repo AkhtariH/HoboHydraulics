@@ -20,12 +20,12 @@
 - [X] Create user show view
 - [X] Create request classes for BridgeController, UserController
 - [X] Create index for admin panel
-- [ ] Create isLoggedIn Middleware
-- [ ] Employee should be able to change threshold_value of sensor
+- [ ] Create DashboardController
 - [ ] Create Employee/Customer view
+- [ ] Employee should be able to change threshold_value of sensor
+- [ ] Create isLoggedIn Middleware
 - [ ] Refresh sensor page every minute
 - [ ] Give warning when threshold is exceeded for Color sensor
-- [ ] Create DashboardController
 - [ ] Sends email when user is registered and when threshold is exceeded
 
 
