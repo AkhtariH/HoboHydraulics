@@ -74,7 +74,7 @@
                                 <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="default-avatar" class="rounded-circle" width="40px" height="40px">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#"><i class="fa fa-user pr-2"></i> Profile</a>
+                                <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fa fa-user pr-2"></i> Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i> Tasks</a>
                                 <div class="dropdown-divider"></div>
@@ -119,7 +119,7 @@
                             @endif
                             <ul class="sidebar-menu mt-4 mb-4">
                                 <li class="parent">
-                                    <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                    <a href="{{ route('profile.index') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
                                         <span class="none">My Profile</span>
                                     </a>
                                 </li>
