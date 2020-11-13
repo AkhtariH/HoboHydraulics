@@ -6,6 +6,10 @@ use App\Events\NewUserRegistered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
+use App\Mail\WelcomeMail;
+
+use Mail;
+
 class SendWelcomeEmail
 {
     /**
@@ -27,10 +31,10 @@ class SendWelcomeEmail
     public function handle(NewUserRegistered $event)
     {
         $user = $event->user;
-        Mail::send('emails.welcome', ['user' => $user], function ($message) use ($user) {
-                $message->from('hi@yourdomain.com', 'John Doe');
-                $message->subject('Welcome aboard '.$user->name.'!');
-                $message->to($user->email);
-        });
+        $data = [];
+        $data['email'] = $user->email;
+        $data['type'] = $user->type;
+        $data['message'] = 'Welcome ' . $user->name . '!';
+        Mail::to($user->email)->send(new WelcomeMail($data));
     }
 }

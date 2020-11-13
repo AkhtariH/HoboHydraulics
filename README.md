@@ -31,6 +31,7 @@
 - [ ] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
 - [ ] Refresh sensor page every minute ``` fix/color-sensor ```
 - [ ] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
+- [ ] New registered user get email with link to set a password
 
 
 ### Version 2.0
@@ -42,6 +43,7 @@
 - [ ] Instead of refreshing page, refresh only sensor values
 - [ ] Dynamic locations map
 - [ ] Forgot password and email verification
+- [ ] Change notifications to slide down from the top
 
 ### Version 3.0
 - [ ] Roles and permission system
