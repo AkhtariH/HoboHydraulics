@@ -26,7 +26,7 @@
 - [X] Add auth Middleware
 - [X] Paginate for Bridge views
 - [X] Create Customer view (Can't change threhsold value)
-- [ ] Edit profile page ``` feat/profile ```
+- [X] Edit profile page
 - [ ] Sends email when user is registered and when threshold is exceeded ``` feat/email ```
 - [ ] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
 - [ ] Refresh sensor page every minute ``` fix/color-sensor ```
