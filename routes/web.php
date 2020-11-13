@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BridgeController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Middleware login
+// Login
 Route::get('login', 'App\Http\Controllers\AuthController@index')->name('login');
 Route::post('post-login', 'App\Http\Controllers\AuthController@postLogin');
 Route::get('logout', 'App\Http\Controllers\AuthController@logout')->name('user.logout');
@@ -28,6 +29,9 @@ Route::get('logout', 'App\Http\Controllers\AuthController@logout')->name('user.l
 // Dashboard
 Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->middleware('auth')->name('dashboard');
 Route::get('dashboard/bridge/{id}', 'App\Http\Controllers\DashboardController@show')->middleware('auth')->name('dashboard.show');
+
+// Profile
+Route::get('profile', [ProfileController::class, 'index']);
 
 // Admin Panel
 Route::resource('admin/user', UserController::class)->middleware(['auth', 'is_admin'])->names('admin.user');
