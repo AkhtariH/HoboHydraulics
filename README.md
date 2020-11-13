@@ -41,6 +41,7 @@
 - [ ] Add ability to change date and time for graph in sensor detail page
 - [ ] Instead of refreshing page, refresh only sensor values
 - [ ] Dynamic locations map
+- [ ] Forgot password and email verification
 
 ### Version 3.0
 - [ ] Roles and permission system
