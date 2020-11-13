@@ -21,9 +21,15 @@
     <div class="mt-1 mb-5 button-container">
         <div class="card shadow-sm">
             <div class="card-body">
-                <p class="p-typo"><strong>Name:</strong> {{ $user->name }}</p>
-                <p class="p-typo"><strong>E-Mail:</strong> {{ $user->email }}</p>
-                <p class="p-typo"><strong>Type:</strong> {{ ucfirst($user->type) }}</p>
+                <div class="avatar text-center">
+                    <img src="{{ asset('/img/uploads') . '/' . $user->profile_image }}" alt="" class="rounded-circle profile-image" />
+                    <div class="form-group" id="imageUpload">
+                        <label for="image">{{ $user->name }}</label>
+                        <p class="p-typo"><strong>E-Mail:</strong> {{ $user->email }}</p>
+                        <p class="p-typo"><strong>Type:</strong> {{ ucfirst($user->type) }}</p>
+                        <p class="p-typo"><strong>Creation date:</strong> {{ date('d-m-Y', strtotime($user->created_at)) }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
