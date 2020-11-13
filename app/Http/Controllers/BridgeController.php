@@ -35,12 +35,9 @@ class BridgeController extends Controller
                     if ($sensor->data_collection[0]->error == true) {
                         $bridge->error = true;
                         break;
-                    } else {
-                        $bridge->error = false;
                     }
-                } else {
-                    $bridge->error = false;
                 }
+                $bridge->error = false;
             }
         }
         
@@ -87,7 +84,7 @@ class BridgeController extends Controller
         $sensors = $this->getSensorsOfBridge($id);
 
         if (Auth()->user()->isAdmin()) {
-            $users = User::where('type', '=', 'employee')->orWhere('type', '=', 'admin')->get();
+            $users = User::all()->sortByDesc('type');
 
             foreach ($users as $user) {
                 $userBridge = UserBridge::where([

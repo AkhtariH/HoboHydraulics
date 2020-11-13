@@ -25,19 +25,24 @@
 - [X] Employee should be able to change threshold_value of sensor
 - [X] Add auth Middleware
 - [X] Paginate for Bridge views
-- [ ] Create Customer view (Cant change threhsold value)
+- [X] Create Customer view (Can't change threhsold value)
 - [ ] Refresh sensor page every minute
 - [ ] Give warning when threshold is exceeded for Color sensor
 - [ ] Sends email when user is registered and when threshold is exceeded
+- [ ] Edit profile page
 
 
 ### Version 2.0
 
+- [ ] Add tasks page
 - [ ] Add Manage sensors page
 - [ ] Change threshold controller to SensorController
 - [ ] Add ability to change date and time for graph in sensor detail page
 - [ ] Instead of refreshing page, refresh only sensor values
 - [ ] Dynamic locations map
+
+### Version 3.0
+- [ ] Roles and permission system
 
 ## Contributing
 

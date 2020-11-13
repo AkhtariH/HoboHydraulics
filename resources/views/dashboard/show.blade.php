@@ -119,9 +119,11 @@
                             <p>
                                 <small class="text-muted bc-description">
                                     Threshold: <span id="sensor-{{ $sensor->id }}">[{{ $sensor->threshold_value }}]</span>
-                                    <a data-toggle="modal" class="pointer" data-target="#thresholdModal" data-value="{{ $sensor->threshold_value }}" data-id="{{ $sensor->id }}" data-name="{{ $sensor->name }}">
+                                    @if (Auth()->user()->type != 'customer')
+                                      <a data-toggle="modal" class="pointer" data-target="#thresholdModal" data-value="{{ $sensor->threshold_value }}" data-id="{{ $sensor->id }}" data-name="{{ $sensor->name }}">
                                         <span class="edit-threshold"><i class="fas fa-pencil-alt"></i></span>
-                                    </a>
+                                      </a>
+                                    @endif
                                 </small>
                             </p>
                         </div>

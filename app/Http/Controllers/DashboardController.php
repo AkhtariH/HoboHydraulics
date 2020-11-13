@@ -37,12 +37,9 @@ class DashboardController extends Controller
                     if ($sensor->data_collection[0]->error == true) {
                         $bridge->error = true;
                         break;
-                    } else {
-                        $bridge->error = false;
                     }
-                } else {
-                    $bridge->error = false;
                 }
+                $bridge->error = false;
             }
         }
         

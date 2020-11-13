@@ -136,7 +136,7 @@
         @endif
     </div>
 
-    <h4>Assign employees</h4>
+    <h4>Assign accounts</h4>
     <hr/>
     <div class="row pl-0" id="sensor-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3 user-card">
@@ -144,7 +144,7 @@
             @foreach ($users as $user)
 
                 <input type="checkbox" class="form-check-input hidden" id="user-{{ $user->id }}" data-id="{{ $user->id }}" data-bridge="{{ $bridge->id }}" {{ $user->checked == true ? "checked" : "" }}>
-                <label for="user-{{ $user->id }}" class="badge badge-secondary font-15">{{ $user->name }}</label>
+                <label for="user-{{ $user->id }}" class="badge badge-secondary font-15">[{{ ucfirst(substr($user->type, 0, 1)) }}] {{ $user->name }}</label>
             @endforeach
         </div>
         @else  
