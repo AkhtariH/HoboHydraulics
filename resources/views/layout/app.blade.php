@@ -107,7 +107,7 @@
 
                     <!--Sidebar Navigation Menu-->
                     <div class="sidebar-menu-container">
-                        @if (Route::is('dashboard.*') || Route::is('dashboard'))
+                        @if (Route::is('admin.*') == false)
                             @if (Auth()->user()->isAdmin())
                                 <ul class="sidebar-menu mt-4 mb-4">
                                     <li class="parent">
@@ -145,10 +145,8 @@
                                     </a>
                                 </li>
                             </ul>
-                        @endif
-
-                        {{-- Admin Panel --}}
-                        @if (Route::is('admin.*'))
+                        @else
+                            {{-- Admin Panel --}}
                             <ul class="sidebar-menu mt-4 mb-4">
                                 <li class="parent">
                                     <a href="{{ route('admin.index') }}" class=""><i class="fas fa-tachometer-alt mr-3"></i>

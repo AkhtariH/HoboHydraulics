@@ -30,6 +30,7 @@
 - [ ] Sends email when user is registered and when threshold is exceeded ``` feat/email ```
 - [ ] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
 - [ ] Refresh sensor page every minute ``` fix/color-sensor ```
+- [ ] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
 
 
 ### Version 2.0
