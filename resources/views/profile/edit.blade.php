@@ -12,20 +12,20 @@
                 <div class="alert alert-danger">{{$errors->first()}}</div>
             @endif
 
-            <!--Image Avatar-->
-            <div class="avatar text-center">
-                <img src="{{ asset('/img/default-avatar.jpg') }}" alt="" class="rounded-circle profile-image" />
-                <div class="form-group" id="imageUpload">
-                    <label for="image">{{ $user->name }}</label>
-                    <input type="file" class="custom-file-input" id="profilePic" name="profilepic">
-                    <label class="custom-file-label align-middle" for="profilePic">Choose file</label>
-                    <small class="form-text text-muted">Choose a profile picture.</small>
-                </div>
-            </div>
-            <!--Image Avatar-->
-            <form action="{{ route('profile.update', $user->id) }}" method="POST" class="mt-2">
+            <form action="{{ route('profile.update', $user->id) }}" method="POST" class="mt-2" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+
+                <div class="avatar text-center">
+                    <img src="{{ asset('/img/uploads') . '/' . $user->profile_image }}" alt="" class="rounded-circle profile-image" />
+                    <div class="form-group" id="imageUpload">
+                        <label for="image">{{ $user->name }}</label>
+                        <input type="file" class="custom-file-input" id="profilePic" name="profile_image">
+                        <label class="custom-file-label align-middle" for="profilePic">Choose file</label>
+                        <small class="form-text text-muted">Choose a profile picture.</small>
+                    </div>
+                </div>
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>

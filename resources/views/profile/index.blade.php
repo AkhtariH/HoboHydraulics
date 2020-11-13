@@ -14,6 +14,12 @@
             </div> -->
     <!--/Skill bars -->
 
+    @if (session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!--Content types-->
     <h4 class="inline">Profile</h4>
     <hr/>
@@ -22,7 +28,7 @@
             <div class="card-body">
                 <!--Image Avatar-->
                 <div class="avatar text-center">
-                    <img src="{{ asset('/img/default-avatar.jpg') }}" alt="" class="rounded-circle profile-image" />
+                    <img src="{{ asset('/img/uploads') . '/' . $user->profile_image }}" alt="" class="rounded-circle profile-image" />
                     <p class="p-typo"><strong>{{ $user->name }}</strong></p>
                     <p class="p-typo"><strong>E-Mail:</strong> {{ $user->email }}</p>
                     <p class="p-typo"><strong>Type:</strong> {{ ucfirst($user->type) }}</p>

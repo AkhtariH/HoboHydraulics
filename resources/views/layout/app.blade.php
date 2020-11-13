@@ -71,7 +71,7 @@
                     <div class="col-sm-12 col-4 text-right flex-header-menu justify-content-end">
                         <div class="mr-4">
                             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('/img/default-avatar.jpg') }}" alt="default-avatar" class="rounded-circle" width="40px" height="40px">
+                                <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="default-avatar" class="rounded-circle" width="40px" height="40px">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="#"><i class="fa fa-user pr-2"></i> Profile</a>
@@ -99,7 +99,7 @@
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
                     <div class="avatar text-center">
-                        <img src="{{ asset('/img/default-avatar.jpg') }}" alt="" class="rounded-circle" />
+                        <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="" class="rounded-circle" />
                         <p><strong>Welcome<br>{{ ucfirst(Auth()->user()->name) }}!</strong></p>
                         <span class="text-danger small"><strong>{{ ucfirst(Auth()->user()->type) }}</strong></span>
                     </div>

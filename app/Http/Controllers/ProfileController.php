@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
@@ -44,18 +46,28 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request)
+    public function update(ProfileUpdateRequest $request)
     {
         $request->validated();
 
-        $data = $request->except('password');
+        $user = Auth::user();
+        $data = collect($request->except(['password', 'profile_image']));
+        
         if ($request->has('password') && $request->password != '') {
-            $data = $request->all();
-            $data['password'] = Hash::make($data['password']);
+            $data->put('password', Hash::make($request['password']));
         }
 
-        $user = User::findOrFail(Auth()->user()->id);
-        $user->update($data);
+        if ($request->has('profile_image')) {
+            $imageName = time() . '.' . $request->profile_image->extension();  
+            $request->profile_image->move(public_path('img/uploads/'), $imageName);
+            $data->put('profile_image', $imageName);
+
+            if(File::exists(public_path('img/uploads/' . $user->profile_image))){
+                File::delete(public_path('img/uploads/' . $user->profile_image));
+            }
+        }
+
+        $user->update($data->toArray());
 
         return redirect()->route('profile.index')->with('success', 'Your profile has been updated!');
     }
