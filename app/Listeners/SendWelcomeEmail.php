@@ -5,6 +5,8 @@ namespace App\Listeners;
 use App\Events\NewUserRegistered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Mail\Message;
 
 use App\Mail\WelcomeMail;
 
@@ -35,6 +37,13 @@ class SendWelcomeEmail
         $data['email'] = $user->email;
         $data['type'] = $user->type;
         $data['message'] = 'Welcome ' . $user->name . '!';
-        Mail::to($user->email)->send(new WelcomeMail($data));
+        // Mail::to($user->email)->send(new WelcomeMail($data));
+
+        $token = Password::getRepository()->create($user);
+        Mail::send('emails.welcome', ['user' => $user, 'token' => $token], function (Message $message) use ($user) {
+            $message->subject(config('app.name') . ' - Password Reset Link');
+            $message->to($user->email);
+        });
+
     }
 }

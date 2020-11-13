@@ -144,7 +144,7 @@ img.g-img + div {
 }
 .btn.btn-primary{
 	border-radius: 5px;
-	background: #30e3ca;
+	background: #DD3333;
 	color: #ffffff;
 }
 .btn.btn-white{
@@ -182,7 +182,7 @@ body{
 }
 
 a{
-	color: #30e3ca;
+	color:#DD3333;
 }
 
 table{
@@ -349,7 +349,11 @@ ul.social li{
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 2.5em; text-align: center;">
-                            {{ $data['message'] }}
+                            <h3>Welcome <strong>{{ $user->name }}</strong>!</h3>
+                            <p>You are succesfully registered as {{ $user->type == 'customer' ? 'a' : 'an' }} <strong>{{ ucfirst($user->type) }}</strong> on Hobo Hydrauliek.</p>
+                            <p>The last step is to <a href="{{ URL::to('/reset-password') . '/' . $token }}" target="_blank">set a password for your account.</a></p>
+                            <br>
+                            <p><a href="{{ URL::to('/reset-password') . '/' . $token }}" class="btn btn-primary" target="_blank">Set password</a></p>
             			</div>
             		</td>
             	</tr>
@@ -368,7 +372,10 @@ ul.social li{
                     <tr>
                       <td style="text-align: left; padding-right: 10px;">
                       	<h3 class="heading">About</h3>
-                      	<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                      	<p>
+                            Hobo Hydrauliek was founded in 2000, but our knowledge extends a lot further.
+                            Our company is located in Emmen, where we have a well-equipped workshop with a large warehouse and much more.
+                        </p>
                       </td>
                     </tr>
                   </table>
@@ -379,8 +386,8 @@ ul.social li{
                       <td style="text-align: left; padding-left: 5px; padding-right: 5px;">
                       	<h3 class="heading">Contact Info</h3>
                       	<ul>
-					                <li><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-					                <li><span class="text">+2 392 3929 210</span></a></li>
+					                <li><span class="text">Roald Amundsenstraat 25, 7825 AP Emmen, Netherlands</span></li>
+					                <li><span class="text">+31 591 314 163</span></a></li>
 					              </ul>
                       </td>
                     </tr>
@@ -392,11 +399,9 @@ ul.social li{
                       <td style="text-align: left; padding-left: 10px;">
                       	<h3 class="heading">Useful Links</h3>
                       	<ul>
-					                <li><a href="#">Home</a></li>
-					                <li><a href="#">About</a></li>
-					                <li><a href="#">Services</a></li>
-					                <li><a href="#">Work</a></li>
-					              </ul>
+					                <li><a href="{{ URL::to('/login') }}">Login</a></li>
+					                <li><a href="{{ URL::to('/dashboard') }}">Dashboard</a></li>
+					    </ul>
                       </td>
                     </tr>
                   </table>
@@ -407,7 +412,7 @@ ul.social li{
         </tr><!-- end: tr -->
         <tr>
           <td class="bg_light" style="text-align: center;">
-          	<p>No longer want to receive these email? You can <a href="#" style="color: rgba(0,0,0,.8);">Unsubscribe here</a></p>
+          	<p>&copy; Hobo Hydrauliek 2020</p>
           </td>
         </tr>
       </table>

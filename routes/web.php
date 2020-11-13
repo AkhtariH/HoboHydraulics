@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ThresholdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BridgeController;
+use App\Http\Controllers\PasswordResetController;
 
 
 /*
@@ -25,9 +26,15 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+
+Route::get('forgot-password', [PasswordResetController::class, 'index'])->middleware(['guest'])->name('password.request');
+Route::post('forgot-password', [PasswordResetController::class, 'email'])->middleware(['guest'])->name('password.email');
+Route::get('reset-password/{token}', [PasswordResetController::class, 'reset'])->middleware('guest')->name('password.reset');
+Route::post('reset-password', [PasswordResetController::class, 'update'])->middleware('guest')->name('password.update');
+
 // Login
 Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::post('post-login', [AuthController::class, 'postLogin']);
+Route::post('login', [AuthController::class, 'postLogin']);
 Route::get('logout', [AuthController::class, 'logout'])->name('user.logout');
 
 // Dashboard
