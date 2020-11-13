@@ -39,7 +39,7 @@ class AdminController extends Controller
         $data['user_count'] = $user_count;
         $data['bridge_count'] = $bridge_count;
         $data['assigned_bridges_count'] = $assigned_bridges_count;
-        $data['assigned_bridges_percentage'] = ($data['assigned_bridges_count'] / $data['bridge_count']) * 100;
+        $data['assigned_bridges_percentage'] = ($data['bridge_count'] > 0) ? ($data['assigned_bridges_count'] / $data['bridge_count']) * 100 : 100;
 
         return view('admin.index', compact('data'));
     }

@@ -71,10 +71,10 @@
                     <div class="col-sm-12 col-4 text-right flex-header-menu justify-content-end">
                         <div class="mr-4">
                             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('/img/default-avatar.jpg') }}" alt="default-avatar" class="rounded-circle" width="40px" height="40px">
+                                <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="default-avatar" class="rounded-circle" width="40px" height="40px">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#"><i class="fa fa-user pr-2"></i> Profile</a>
+                                <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fa fa-user pr-2"></i> Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i> Tasks</a>
                                 <div class="dropdown-divider"></div>
@@ -99,7 +99,7 @@
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
                     <div class="avatar text-center">
-                        <img src="{{ asset('/img/default-avatar.jpg') }}" alt="" class="rounded-circle" />
+                        <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="" class="rounded-circle" />
                         <p><strong>Welcome<br>{{ ucfirst(Auth()->user()->name) }}!</strong></p>
                         <span class="text-danger small"><strong>{{ ucfirst(Auth()->user()->type) }}</strong></span>
                     </div>
@@ -107,7 +107,7 @@
 
                     <!--Sidebar Navigation Menu-->
                     <div class="sidebar-menu-container">
-                        @if (Route::is('dashboard.*') || Route::is('dashboard'))
+                        @if (Route::is('admin.*') == false)
                             @if (Auth()->user()->isAdmin())
                                 <ul class="sidebar-menu mt-4 mb-4">
                                     <li class="parent">
@@ -119,7 +119,7 @@
                             @endif
                             <ul class="sidebar-menu mt-4 mb-4">
                                 <li class="parent">
-                                    <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                    <a href="{{ route('profile.index') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
                                         <span class="none">My Profile</span>
                                     </a>
                                 </li>
@@ -145,10 +145,8 @@
                                     </a>
                                 </li>
                             </ul>
-                        @endif
-
-                        {{-- Admin Panel --}}
-                        @if (Route::is('admin.*'))
+                        @else
+                            {{-- Admin Panel --}}
                             <ul class="sidebar-menu mt-4 mb-4">
                                 <li class="parent">
                                     <a href="{{ route('admin.index') }}" class=""><i class="fas fa-tachometer-alt mr-3"></i>

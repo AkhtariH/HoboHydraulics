@@ -2,8 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ThresholdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BridgeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,20 +25,25 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Middleware login
-Route::get('login', 'App\Http\Controllers\AuthController@index')->name('login');
-Route::post('post-login', 'App\Http\Controllers\AuthController@postLogin');
-Route::get('logout', 'App\Http\Controllers\AuthController@logout')->name('user.logout');
+// Login
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('post-login', [AuthController::class, 'postLogin']);
+Route::get('logout', [AuthController::class, 'logout'])->name('user.logout');
 
 // Dashboard
-Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->middleware('auth')->name('dashboard');
-Route::get('dashboard/bridge/{id}', 'App\Http\Controllers\DashboardController@show')->middleware('auth')->name('dashboard.show');
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('dashboard/bridge/{id}', [DashboardController::class, 'show'])->middleware('auth')->name('dashboard.show');
+
+// Profile
+Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 // Admin Panel
 Route::resource('admin/user', UserController::class)->middleware(['auth', 'is_admin'])->names('admin.user');
 Route::resource('admin/bridge', BridgeController::class)->middleware(['auth', 'is_admin'])->names('admin.bridge');
-Route::get('admin', 'App\Http\Controllers\AdminController@index')->middleware(['auth', 'is_admin'])->name('admin.index');
-Route::post('admin/assign', 'App\Http\Controllers\AdminController@assign')->middleware(['auth', 'is_admin'])->name('admin.assign');
+Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'is_admin'])->name('admin.index');
+Route::post('admin/assign', [AdminController::class, 'assign'])->middleware(['auth', 'is_admin'])->name('admin.assign');
 
 // AJAX requests
-Route::post('threshold', 'App\Http\Controllers\ThresholdController@threshold')->middleware('auth')->name('threshold');
+Route::post('threshold', [ThresholdController::class, 'threshold'])->middleware('auth')->name('threshold');
