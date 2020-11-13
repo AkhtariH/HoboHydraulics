@@ -26,10 +26,10 @@
 - [X] Add auth Middleware
 - [X] Paginate for Bridge views
 - [X] Create Customer view (Can't change threhsold value)
-- [ ] Refresh sensor page every minute
-- [ ] Give warning when threshold is exceeded for Color sensor
-- [ ] Sends email when user is registered and when threshold is exceeded
 - [ ] Edit profile page
+- [ ] Sends email when user is registered and when threshold is exceeded
+- [ ] Give warning when threshold is exceeded for Color sensor
+- [ ] Refresh sensor page every minute
 
 
 ### Version 2.0
