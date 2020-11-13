@@ -33,9 +33,13 @@ class DashboardController extends Controller
             $sensors = $this->getSensorsOfBridge($bridge->id);
             
             foreach($sensors as $sensor) {
-                if ($sensor->data_collection[0]->error == true) {
-                    $bridge->error = true;
-                    break;
+                if (count($sensor->data_collection) > 0) {
+                    if ($sensor->data_collection[0]->error == true) {
+                        $bridge->error = true;
+                        break;
+                    } else {
+                        $bridge->error = false;
+                    }
                 } else {
                     $bridge->error = false;
                 }

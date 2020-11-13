@@ -86,24 +86,32 @@
                 <div class="bg-white border shadow">
                     <div class="media p-4">
                         <div class="align-self-center mr-3 rounded-circle notify-icon">
-                            @if ($sensor->data_collection[0]->error == false)
+                            @if (count($sensor->data_collection) > 0 )
+                                @if ($sensor->data_collection[0]->error == false)
+                                    <i class="far fa-check-circle sensor-good"></i>
+                                @else
+                                    <i class="fas fa-exclamation-triangle sensor-error"></i>
+                                @endif
+                            @else 
                                 <i class="far fa-check-circle sensor-good"></i>
-                            @else
-                                <i class="fas fa-exclamation-triangle sensor-error"></i>
                             @endif
                         </div>
                         <div class="media-body pl-2">
                             <h5 class="mt-0 mb-0">
-                                <strong style="font-size: 16px;font-weight: 500 !important;" class="{{ $sensor->data_collection[0]->error == true ? 'error' : '' }}">
+                                <strong style="font-size: 16px;font-weight: 500 !important;" class="{{ count($sensor->data_collection) > 0 && $sensor->data_collection[0]->error == true ? 'error' : '' }}">
                                     <a data-toggle="modal" id="sensorDetailTrigger-{{ $sensor->id }}" class="pointer" data-target="#sensorDetailModal" data-value="{{ implode(';', $sensor->data_collection) }}" data-name="{{ $sensor->name }}" data-currthreshold="{{ $sensor->threshold_value }}" data-type="{{ $sensor->type }}" data-attributes="{{ $sensor->data_attribute }}">
-                                        {{ $sensor->name }} -
+                                        {{ $sensor->name }}
                                     </a>
-                                    @if(str_contains($sensor->data_attribute, ','))
-                                        @foreach (explode(',', $sensor->data_attribute) as $item)
-                                            [{{ $sensor->data_collection[0]->data[$item] }}]
-                                        @endforeach
-                                    @else
-                                        {{ $sensor->data_collection[0]->data[$sensor->data_attribute] }}
+                                    @if (count($sensor->data_collection) > 0)
+                                        @if(str_contains($sensor->data_attribute, ','))
+                                            @foreach (explode(',', $sensor->data_attribute) as $item)
+                                                - [{{ $sensor->data_collection[0]->data[$item] }}]
+                                            @endforeach
+                                        @else
+                                            - {{ $sensor->data_collection[0]->data[$sensor->data_attribute] }}
+                                        @endif
+                                    @else 
+                                        - No Data
                                     @endif
                                 </strong>
                             </h5>

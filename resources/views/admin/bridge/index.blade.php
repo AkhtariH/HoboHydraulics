@@ -48,4 +48,8 @@
             </div>
         @endif
     </div>
+
+    <div class="row pagination">
+        {!! $bridges->links() !!}
+    </div>
 @endsection

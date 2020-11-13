@@ -2065,6 +2065,11 @@ input[type="checkbox"]:checked + .font-15 {
     color: #DD3333;
 }
 
+.pagination {
+    justify-content: center !important;
+    margin-top: 20px;
+}
+
 /*==============Error 404 rules ==================*/
 
 @media only screen and (max-width: 1074px) {

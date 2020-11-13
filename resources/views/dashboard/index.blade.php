@@ -35,10 +35,15 @@
                     </div>
                 </div>
             @endforeach
+            {!! $bridges->links() !!}
         @else
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3 user-card">
                 <p>There are no bridges assigned to your account!</p>
             </div>
         @endif
+    </div>
+
+    <div class="row pagination">
+        {!! $bridges->links() !!}
     </div>
 @endsection

@@ -57,7 +57,7 @@ $(document).ready(function() {
     $('#sensorDetailModal').on('show.bs.modal', function (event) {
         var modal = $(this);
         var button = $(event.relatedTarget);
-        var value = button.data('value'); // PASS ONLY LAST 10 DATA
+        var value = button.data('value');
         var name = button.data('name');
         var currThreshold = button.data('currthreshold');
 
