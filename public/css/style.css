@@ -2070,6 +2070,24 @@ input[type="checkbox"]:checked + .font-15 {
     margin-top: 20px;
 }
 
+.profile-image {
+    width: 150px !important;
+    height: 150px !important;
+}
+
+.margin {
+    margin-top: 20px !important;
+}
+
+.custom-file-label {
+    top: initial;
+    width: 350px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
 /*==============Error 404 rules ==================*/
 
 @media only screen and (max-width: 1074px) {

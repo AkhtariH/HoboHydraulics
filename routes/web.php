@@ -35,7 +35,9 @@ Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth
 Route::get('dashboard/bridge/{id}', [DashboardController::class, 'show'])->middleware('auth')->name('dashboard.show');
 
 // Profile
-Route::get('profile', [ProfileController::class, 'index']);
+Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 // Admin Panel
 Route::resource('admin/user', UserController::class)->middleware(['auth', 'is_admin'])->names('admin.user');
