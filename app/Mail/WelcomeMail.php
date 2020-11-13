@@ -11,14 +11,16 @@ class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $data;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +30,16 @@ class WelcomeMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        $address = 'info@hobohydrauliek.nl';
+        $subject = 'This is a demo!';
+        $name = 'Jane Doe';
+        
+        return $this->view('emails.welcome')
+                    ->from($address, $name)
+                    ->cc($address, $name)
+                    ->bcc($address, $name)
+                    ->replyTo($address, $name)
+                    ->subject($subject)
+                    ->with([ 'message' => $this->data['message'] ]);
     }
 }
