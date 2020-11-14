@@ -32,7 +32,7 @@
 - [ ] Refresh sensor page every minute ``` fix/color-sensor ```
 - [ ] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
 
-test
+- [ ] Add bridges to admin map (index view)
 
 
 ### Version 2.0
