@@ -138,13 +138,60 @@
         @endif
     </div>
     
-    <h4 class="mb-2">Bridge location //TODO</h4>
+    <h4 class="mb-2">Bridge location</h4>
     <hr/>
     <!--Google world-->
     <div class="mt-1 mb-3 p-3 button-container bg-white shadow-sm border">
         
-        <div id="google_ptm_map" style="width: 100%; height: 300px"></div>
+        <div id="map" style="width: 100%; height: 300px"></div>
     </div>
 
 <!--/Content types-->
+@endsection
+
+@section('inclusions')
+    @parent
+
+    <script>
+      if($("#map").length > 0){
+        L.mapquest.key = 'HSpGQTU57l0axHugD5o7BjhWZbGnM7Ru';
+
+        var bridge = {!! json_encode($bridge->toArray(), JSON_HEX_TAG) !!};
+        var adress = bridge.adress;
+
+        $.ajax({
+            type: "POST",
+            url: 'http://open.mapquestapi.com/geocoding/v1/address?key=HSpGQTU57l0axHugD5o7BjhWZbGnM7Ru',
+            data: {
+                "location": adress,
+                "options": {
+                  "thumbMaps": false
+                }
+            },
+            success: function(msg) {
+              var lat = msg.results[0].locations[0].displayLatLng.lat;
+              var long = msg.results[0].locations[0].displayLatLng.lng;
+
+              var map = L.mapquest.map('map', {
+                center: [lat, long],
+                layers: L.mapquest.tileLayer('map'),
+                zoom: 16
+              });
+
+              L.mapquest.textMarker([lat, long], {
+                text: bridge.name,
+                subtext: adress + "<br>" + bridge.bridgeHash,
+                position: 'right',
+                type: 'marker',
+                icon: {
+                  primaryColor: '#DD3333',
+                  secondaryColor: '#DD3333',
+                  size: 'lg'
+                }
+              }).addTo(map);
+            }
+        });
+          
+      }
+    </script>
 @endsection
