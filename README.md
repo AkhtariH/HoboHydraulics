@@ -27,10 +27,14 @@
 - [X] Paginate for Bridge views
 - [X] Create Customer view (Can't change threhsold value)
 - [X] Edit profile page
-- [ ] Sends email when user is registered and when threshold is exceeded ``` feat/email ```
+- [X] Sends email when user is registered and when threshold is exceeded ``` feat/email ```
+- [X] Sends email when threshold is exceeded ``` feat/email ```
+- [ ] Show bridges on map ``` feat/bridge-map ```
 - [ ] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
 - [ ] Refresh sensor page every minute ``` fix/color-sensor ```
 - [ ] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
+
+- [ ] Node.JS send email when threshold is exceeded (template see laravel emails/sensor.blade.php)
 
 
 ### Version 2.0
@@ -41,6 +45,8 @@
 - [ ] Add ability to change date and time for graph in sensor detail page
 - [ ] Instead of refreshing page, refresh only sensor values
 - [ ] Dynamic locations map
+- [ ] Forgot password and email verification
+- [ ] Change notifications to slide down from the top
 
 ### Version 3.0
 - [ ] Roles and permission system

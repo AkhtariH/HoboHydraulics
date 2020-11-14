@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 
+use App\Events\NewUserRegistered;
+
 class UserController extends Controller
 {
     public function __construct() {
@@ -56,7 +58,7 @@ class UserController extends Controller
 
         $check = User::create($data);
 
-        // TODO: send email with credentials
+        event(new NewUserRegistered($check));
 
         return redirect()->route('admin.user.index')->with('success', 'User has been created!');
     }
