@@ -55,8 +55,13 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        $bridge = Bridge::findOrFail($id);
+        $bridge = Bridge::findOrFail($id); // Only show bridges that are assigned to the user
         $sensors = $this->getSensorsOfBridge($id);
+        foreach ($sensors as $sensor) {
+            if ($sensor->data_collection[0]->error == 1) {
+                event(new SensorThresholdExceeded($sensor));
+            }
+        }
 
         return view('dashboard.show', compact('bridge', 'sensors'));
     }

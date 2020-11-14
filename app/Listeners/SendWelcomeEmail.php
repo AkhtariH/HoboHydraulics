@@ -33,17 +33,11 @@ class SendWelcomeEmail
     public function handle(NewUserRegistered $event)
     {
         $user = $event->user;
-        $data = [];
-        $data['email'] = $user->email;
-        $data['type'] = $user->type;
-        $data['message'] = 'Welcome ' . $user->name . '!';
-        // Mail::to($user->email)->send(new WelcomeMail($data));
-
         $token = Password::getRepository()->create($user);
+        
         Mail::send('emails.welcome', ['user' => $user, 'token' => $token], function (Message $message) use ($user) {
             $message->subject(config('app.name') . ' - Password Reset Link');
             $message->to($user->email);
         });
-
     }
 }

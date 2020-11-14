@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\NewUserRegistered::class => [
             \App\Listeners\SendWelcomeEmail::class,
         ],
+        \App\Events\SensorThresholdExceeded::class => [
+            \App\Listeners\SendAlertEmail::class,
+        ],
     ];
 
     /**
