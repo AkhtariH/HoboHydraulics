@@ -10,6 +10,8 @@ use App\Models\SensorData;
 use App\Models\User;
 use App\Models\UserBridge;
 
+use App\Events\SensorThresholdExceeded;
+
 class DashboardController extends Controller
 {
     public function __construct() {
@@ -57,11 +59,11 @@ class DashboardController extends Controller
     {
         $bridge = Bridge::findOrFail($id); // Only show bridges that are assigned to the user
         $sensors = $this->getSensorsOfBridge($id);
-        foreach ($sensors as $sensor) {
-            if ($sensor->data_collection[0]->error == 1) {
-                event(new SensorThresholdExceeded($sensor));
-            }
-        }
+        // foreach ($sensors as $sensor) {
+        //     if ($sensor->data_collection[0]->error == true) {
+        //         event(new SensorThresholdExceeded($sensor));
+        //     }
+        // }
 
         return view('dashboard.show', compact('bridge', 'sensors'));
     }
