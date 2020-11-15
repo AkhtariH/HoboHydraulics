@@ -31,6 +31,7 @@ class AdminController extends Controller
         $sensor_data_count = $sensor_data_count[0]->ErrorCount;
         $user_count = User::count();
         $bridge_count = Bridge::count();
+        $bridges = Bridge::all();
         $assigned_bridges_count = UserBridge::all()->groupBy('bridge_id')->count(); 
 
         $data = [];
@@ -41,7 +42,7 @@ class AdminController extends Controller
         $data['assigned_bridges_count'] = $assigned_bridges_count;
         $data['assigned_bridges_percentage'] = ($data['bridge_count'] > 0) ? ($data['assigned_bridges_count'] / $data['bridge_count']) * 100 : 100;
 
-        return view('admin.index', compact('data'));
+        return view('admin.index', compact('data', 'bridges'));
     }
 
     public function assign(AdminAssignRequest $request) {

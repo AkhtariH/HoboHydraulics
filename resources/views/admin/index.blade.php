@@ -110,3 +110,67 @@
 
 
 @endsection
+
+@section('inclusions')
+    @parent
+
+    <script>
+
+        var markerArr = [];
+        var counter = 0;
+        var bridges = {!! json_encode($bridges->toArray(), JSON_HEX_TAG) !!};
+
+        function ajaxDone(msg) {
+            var lat = Math.round((msg.results[0].locations[0].latLng.lat + Number.EPSILON) * 100) / 100;
+            var lng = Math.round((msg.results[0].locations[0].latLng.lng + Number.EPSILON) * 100) / 100;
+            var marker = { 
+                latLng: [lat, lng],
+                name: bridges[counter].name 
+            };
+            markerArr.push(marker);
+            counter++;
+        }
+        if($("#NLMap").length) {
+           
+            //console.log(bridges);
+
+            for (var i = 0; i < bridges.length; i++) {
+                $.ajax({
+                    type: "POST",
+                    url: 'http://open.mapquestapi.com/geocoding/v1/address?key=HSpGQTU57l0axHugD5o7BjhWZbGnM7Ru',
+                    data: {
+                        "location": bridges[i].adress,
+                        "options": {
+                            "thumbMaps": false
+                        }
+                    },
+                    success: function(data) {
+                        ajaxDone(data);
+                    }
+                });
+            }
+
+
+            setTimeout(function() {
+                $('#NLMap').vectorMap({
+                    map: 'nl_merc',
+                    scaleColors: ['#C8EEFF', '#0071A4'],
+                    normalizeFunction: 'polynomial',
+                    hoverOpacity: 0.7,
+                    hoverColor: false,
+                    regionStyle:{initial:{fill:"#004d40"}},
+                    markerStyle: {
+                        initial: {
+                        fill: '#5c5c5c',
+                        stroke: '#efefef'
+                        }
+                    },
+                    backgroundColor: '#fff',
+                    markers: markerArr
+                });
+            }, 1000);
+            
+
+        }
+    </script>
+@endsection

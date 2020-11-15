@@ -32,6 +32,8 @@
     <!--Nice select -->
     <link rel="stylesheet" href="{{ asset('/css/nice-select.css') }}">
 
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -219,7 +221,8 @@
         <script src="{{ asset('/js/maps/jquery-jvectormap-2.0.2.min.js') }}"></script>
         <script src="{{ asset('/js/maps/jquery-jvectormap-nl-merc.js') }}"></script>
         <script src="{{ asset('/js/maps/jvector-maps.js') }}"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyA4eWTX_mKS6eEE5SPpGN7TLZe41m-7waY"></script>
+        <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
         <script src="{{ asset('/js/maps/google-map-data.js') }}"></script>
         <!--Bootstrap Calendar JS-->
         <script src="{{ asset('/js/calendar/bootstrap_calendar.js') }}"></script>
