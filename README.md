@@ -30,6 +30,7 @@
 - [X] Sends email when user is registered and when threshold is exceeded ``` feat/email ```
 - [X] Sends email when threshold is exceeded ``` feat/email ```
 - [X] Show bridges on map ``` feat/bridge-map ```
+- [ ] Redis broadcasting, listening for new sensor_data inserts and refresh sensor value on page
 - [ ] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
 - [ ] Refresh sensor page every minute ``` fix/color-sensor ```
 - [ ] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
