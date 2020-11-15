@@ -71,7 +71,7 @@ $(document).ready(function() {
                 lastValue += JSON.parse(valueArr[0]).data[value] + " ";
             });
         } else {
-            lastValue = JSON.parse(valueArr[0]).data[lastDataAttribute];
+            lastValue = JSON.parse(valueArr[0]).data;
         }
 
         modal.find('.modal-body').html(`
@@ -96,7 +96,7 @@ $(document).ready(function() {
         // Fill yAcisData with sensor data
         var yAxisData = [];
         for(var i = 0; i < valueArrReverseTen.length; i++) {
-            var data = JSON.parse(valueArrReverseTen[i]).data[lastDataAttribute]; // TODO: ONLY IF ITS HUMIDIY
+            var data = JSON.parse(valueArrReverseTen[i]).data; // TODO: ONLY IF ITS HUMIDIY
             yAxisData[i] = data;
         }
 
@@ -105,7 +105,7 @@ $(document).ready(function() {
         for(var i = 0; i < valueArrReverse.length; i++) {
             var timestamp = JSON.parse(valueArrReverse[i]).created_at;
             var thresholdValue = JSON.parse(valueArrReverse[i]).threshold_value;
-            var sensorValue = JSON.parse(valueArrReverse[i]).data[lastDataAttribute];
+            var sensorValue = JSON.parse(valueArrReverse[i]).data;
 
             if (sensorValue >= thresholdValue) {
                 var errData = {

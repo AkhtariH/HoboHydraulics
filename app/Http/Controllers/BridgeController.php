@@ -120,7 +120,6 @@ class BridgeController extends Controller
                                 ->get();
             $dataArr = [];
             foreach ($sensorData as $data) {
-                $data->data = json_decode($data->data, true);
                 array_push($dataArr, $data);
             }
             $sensor->data_collection = $dataArr;

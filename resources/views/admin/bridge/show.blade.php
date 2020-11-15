@@ -102,14 +102,8 @@
                                     <a data-toggle="modal" id="sensorDetailTrigger-{{ $sensor->id }}" class="pointer" data-target="#sensorDetailModal" data-value="{{ implode(';', $sensor->data_collection) }}" data-name="{{ $sensor->name }}" data-currthreshold="{{ $sensor->threshold_value }}" data-type="{{ $sensor->type }}" data-attributes="{{ $sensor->data_attribute }}">
                                         {{ $sensor->name }}
                                     </a>
-                                    @if (count($sensor->data_collection) > 0)
-                                        @if(str_contains($sensor->data_attribute, ','))
-                                            @foreach (explode(',', $sensor->data_attribute) as $item)
-                                                - [{{ $sensor->data_collection[0]->data[$item] }}]
-                                            @endforeach
-                                        @else
-                                            - {{ $sensor->data_collection[0]->data[$sensor->data_attribute] }}
-                                        @endif
+                                    @if (count($sensor->data_collection) > 1)
+                                      - {{ $sensor->data_collection[0]->data }}
                                     @else 
                                         - No Data
                                     @endif
