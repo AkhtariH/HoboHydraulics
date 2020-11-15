@@ -2092,6 +2092,11 @@ input[type="checkbox"]:checked + .font-15 {
     object-fit: cover !important;
 }
 
+.small-font {
+    font-size: 12.5px !important;
+}
+
+
 /*==============Error 404 rules ==================*/
 
 @media only screen and (max-width: 1074px) {
