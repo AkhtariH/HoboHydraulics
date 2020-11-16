@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Events\DataCreated;
+use App\Traits\Trackable;
 use Carbon\Carbon;
+
 
 class SensorData extends Model
 {
     use HasFactory;
     use Notifiable;
-    
+    use Trackable;
+
     protected $table = 'sensor_data';
 
     /**
@@ -39,4 +42,5 @@ class SensorData extends Model
         $date = Carbon::parse($value);
         return $date->format('Y-m-d H:i');
     }
+
 }
