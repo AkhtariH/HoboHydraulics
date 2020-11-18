@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use App\Events\DataCreated;
 use App\Traits\Trackable;
 use Carbon\Carbon;
 
@@ -28,11 +27,7 @@ class SensorData extends Model
         'data',
         'error',
         'threshold_value',
-    ];   
-
-    protected $dispatchesEvents = [
-        'created' => DataCreated::class,
-    ];
+    ];  
 
     public function getCreatedAtAttribute($value){
         $date = Carbon::parse($value);

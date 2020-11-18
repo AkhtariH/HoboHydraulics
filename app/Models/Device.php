@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sensor extends Model
+class Device extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
-    
+
     protected $fillable = [
-        'device_id',
-        'name',
-        'type',
-        'active',
-        'threshold_value',
-        'sensor_type_id',
-        'ttn_sensor_id'
+        'ttn_dev_id',
+        'bridge_id'
     ];
 }

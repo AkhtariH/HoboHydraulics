@@ -9,6 +9,7 @@ use App\Models\Sensor;
 use App\Models\SensorData;
 use App\Models\User;
 use App\Models\UserBridge;
+use App\Models\Device;
 
 use App\Events\SensorThresholdExceeded;
 
@@ -57,7 +58,12 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        $bridge = Bridge::findOrFail($id); // Only show bridges that are assigned to the user
+        $bridge = Bridge::join('devices', 'bridges.id', '=', 'devices.bridge_id')
+        ->where('bridges.id', $id)
+        ->select('bridges.*', 'devices.ttn_dev_id')
+        ->get()
+        ->first(); // Only show bridges that are assigned to the user
+
         $sensors = $this->getSensorsOfBridge($id);
         // foreach ($sensors as $sensor) {
         //     if ($sensor->data_collection[0]->error == true) {
@@ -70,8 +76,9 @@ class DashboardController extends Controller
 
     public function getSensorsOfBridge($id) {
         $sensors = Sensor::join('sensor_type', 'sensors.sensor_type_id', '=', 'sensor_type.id')
-            ->where('bridge_id', $id)
-            ->select('sensors.*', 'sensor_type.type', 'sensor_type.data_attribute')
+            ->join('devices', 'sensors.device_id', '=', 'devices.id')
+            ->where('devices.bridge_id', $id)
+            ->select('sensors.*', 'sensor_type.type', 'sensor_type.data_attribute', 'devices.ttn_dev_id')
             ->get();
 
 
@@ -82,7 +89,6 @@ class DashboardController extends Controller
                                 ->get();
             $dataArr = [];
             foreach ($sensorData as $data) {
-                $data->data = json_decode($data->data, true);
                 array_push($dataArr, $data);
             }
             $sensor->data_collection = $dataArr;

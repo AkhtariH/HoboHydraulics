@@ -39,7 +39,7 @@ $(document).ready(function() {
         var dataID = $('#thresholdModal').find('.modal-body input#sensorID').val();
         var newValue = $('#thresholdModal').find('.modal-body input#threshold').val();
 
-        $('#sensor-' + dataID).html("[" + newValue + "]");
+        $('#sensor-' + dataID).html(newValue);
         $('#sensorDetailTrigger-' + dataID).data('currthreshold', newValue);
         $.ajax({
             type: "POST",

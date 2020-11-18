@@ -16,7 +16,7 @@ class CreateSensorDataTable extends Migration
         Schema::create('sensor_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sensor_id');
-            $table->json('data');
+            $table->float('data');
             $table->boolean('error')->default(false);
             $table->timestamps();
 

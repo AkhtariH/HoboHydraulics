@@ -9,6 +9,7 @@ use App\Http\Controllers\ThresholdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BridgeController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\TTNController;
 
 
 /*
@@ -54,3 +55,5 @@ Route::post('admin/assign', [AdminController::class, 'assign'])->middleware(['au
 
 // AJAX requests
 Route::post('threshold', [ThresholdController::class, 'threshold'])->middleware('auth')->name('threshold');
+
+Route::post('fire', [TTNController::class, 'index']);

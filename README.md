@@ -37,6 +37,11 @@
 
 - [ ] Node.JS send email when threshold is exceeded (template see laravel emails/sensor.blade.php)
 
+npm install -g laravel-echo-server
+laravel-echo-server start
+
+redis-server
+
 
 ### Version 2.0
 

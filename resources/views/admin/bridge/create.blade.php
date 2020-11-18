@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">Adress</label>
+                    <label for="name">Address</label>
                     <input type="adress" class="form-control" id="adress" name="adress" placeholder="e.g. Grote Markt, Groningen" data-toggle="dropdown">
                     <div class="dropdown" id="drop-custom">
                         <div class="dropdown-menu" id="autodrop">
@@ -33,8 +33,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">Bridge hash</label>
-                    <input type="text" class="form-control" id="bridgeHash" name="bridgeHash" placeholder="e.g. 1KIJO0JE">
+                    <label for="name">Bridge Hash</label>
+                    <input type="text" class="form-control" id="bridgeHash" name="bridgeHash" placeholder="e.g. 100">
                 </div>
         
                 <div class="form-group">

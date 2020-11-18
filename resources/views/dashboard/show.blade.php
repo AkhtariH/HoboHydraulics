@@ -79,10 +79,10 @@
 
     <h4>Sensors</h4>
     <hr/>
-    <div class="row pl-0" id="sensor-row">
+    <div class="row pl-0 device" id="sensor-row" data-device="{{ $bridge->ttn_dev_id }}">
         @if (!$sensors->isEmpty())
             @foreach ($sensors as $sensor)
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mb-3 user-card">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mb-3 user-card sensor" data-sensor="{{ $sensor->ttn_sensor_id }}">
                 <div class="bg-white border shadow">
                     <div class="media p-4">
                         <div class="align-self-center mr-3 rounded-circle notify-icon">
@@ -98,18 +98,12 @@
                         </div>
                         <div class="media-body pl-2">
                             <h5 class="mt-0 mb-0">
-                                <strong style="font-size: 16px;font-weight: 500 !important;" class="{{ count($sensor->data_collection) > 0 && $sensor->data_collection[0]->error == true ? 'error' : '' }}">
+                                <strong style="font-size: 16px;font-weight: 500 !important;">
                                     <a data-toggle="modal" id="sensorDetailTrigger-{{ $sensor->id }}" class="pointer" data-target="#sensorDetailModal" data-value="{{ implode(';', $sensor->data_collection) }}" data-name="{{ $sensor->name }}" data-currthreshold="{{ $sensor->threshold_value }}" data-type="{{ $sensor->type }}" data-attributes="{{ $sensor->data_attribute }}">
                                         {{ $sensor->name }}
                                     </a>
-                                    @if (count($sensor->data_collection) > 0)
-                                        @if(str_contains($sensor->data_attribute, ','))
-                                            @foreach (explode(',', $sensor->data_attribute) as $item)
-                                                - [{{ $sensor->data_collection[0]->data[$item] }}]
-                                            @endforeach
-                                        @else
-                                            - {{ $sensor->data_collection[0]->data[$sensor->data_attribute] }}
-                                        @endif
+                                    @if (count($sensor->data_collection) > 1)
+                                      - <span id="sensor-data">{{ $sensor->data_collection[0]->data }}</span>
                                     @else 
                                         - No Data
                                     @endif
@@ -118,7 +112,7 @@
                             <p><small class="text-muted bc-description"><strong>Type:</strong> {{ $sensor->type }}</small></p>
                             <p>
                                 <small class="text-muted bc-description">
-                                    Threshold: <span id="sensor-{{ $sensor->id }}">[{{ $sensor->threshold_value }}]</span>
+                                    Threshold: <span id="sensor-{{ $sensor->id }}" class="threshold">{{ $sensor->threshold_value }}</span>
                                     @if (Auth()->user()->type != 'customer')
                                       <a data-toggle="modal" class="pointer" data-target="#thresholdModal" data-value="{{ $sensor->threshold_value }}" data-id="{{ $sensor->id }}" data-name="{{ $sensor->name }}">
                                         <span class="edit-threshold"><i class="fas fa-pencil-alt"></i></span>
@@ -151,6 +145,28 @@
 
 @section('inclusions')
     @parent
+    <script src="{{ asset('/js/socket.io.js') }}"></script>
+    <script src="{{ url('/js/laravel-echo-setup.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+      window.Echo.channel('sensor-channel')
+       .listen('.UpstreamEvent', (data) => {
+         console.log(data);
+         if ($('.device').data('device')) {
+           // Notification new data received
+          data.sensors.forEach(element => {
+            $('.device[data-device="' + data.id + '"]').find('.sensor[data-sensor="' + element.id + '"]').find('#sensor-data').html(element.data);
+            var threshold = $('.device[data-device="' + data.id + '"]').find('.sensor[data-sensor="' + element.id + '"]').find('.threshold').html();
+            if (element.data >= threshold) {
+              
+              $('.device[data-device="' + data.id + '"]').find('.sensor[data-sensor="' + element.id + '"]').find('.notify-icon').html('<i class="fas fa-exclamation-triangle sensor-error"></i>');
+            } else {
+              $('.device[data-device="' + data.id + '"]').find('.sensor[data-sensor="' + element.id + '"]').find('.notify-icon').html('<i class="far fa-check-circle sensor-good"></i>');
+            }
+          });
+         }
+
+      });
+  </script>
 
     <script>
       if($("#map").length > 0){

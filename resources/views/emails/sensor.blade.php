@@ -353,7 +353,7 @@ ul.social li{
 							<p>The sensor <strong>{{ $sensor->name }}</strong> on <strong>{{ $bridge->name }}</strong> exceeded the given threshold!</p>
 							<p>Adress: {{ $bridge->adress }}</p>
 							<br/>
-							<h3 style="margin-bottom:0;"><strong style="color: #DD3333;" id="value">{{ $sensor->data_collection[0]->data[$sensor->data_attribute] }}</strong> > <strong>{{ $sensor->threshold_value }}</strong></h3>
+							<h3 style="margin-bottom:0;"><strong style="color: #DD3333;" id="value">{{ implode('.', (array) $sensor->data) }}</strong> > <strong>{{ $sensor->threshold_value }}</strong></h3>
 							<span style="width: 100px;display:block;margin:0 auto;">
 								<small style="text-align: left;float: left;"><label for="value">Value</label></small>
 								<small style="text-align: right;float: right;"><label for="value">Limit</label></small>

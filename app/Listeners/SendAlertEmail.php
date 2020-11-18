@@ -31,12 +31,16 @@ class SendAlertEmail
     public function handle(SensorThresholdExceeded $event)
     {
         $sensor = $event->sensor;
-        $bridge = Bridge::find($sensor->bridge_id);
-        $user = Auth()->user();
+        $bridge = Bridge::join('devices', 'devices.bridge_id', '=', 'bridges.id')
+            ->join('sensors', 'devices.id', '=', 'sensors.device_id')
+            ->where('sensors.id', $sensor->id)
+            ->select('bridges.*')
+            ->get()
+            ->first();
 
-        Mail::send('emails.sensor', ['sensor' => $sensor, 'bridge' => $bridge], function (Message $message) use ($user) {
+        Mail::send('emails.sensor', ['sensor' => $sensor, 'bridge' => $bridge], function (Message $message) {
             $message->subject(config('app.name') . ' - Bridge alert');
-            $message->to($user->email);
+            $message->to("hemran@outlook.de");
         });
     }
 }

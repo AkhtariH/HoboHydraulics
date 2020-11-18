@@ -10,20 +10,26 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UpstreamEvent
+use App\Models\Device;
+use App\Models\Sensor;
+
+
+use Illuminate\Support\Facades\DB;
+
+class UpstreamEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $data;
-
+    public $id;
+    public $sensors;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($id, $sensors)
     {
-        $this->data = $data;
+        $this->id = $id;
+        $this->sensors = $sensors;
     }
 
     /**
@@ -33,6 +39,17 @@ class UpstreamEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('sensor-channel');
+        return new Channel('sensor-channel');
+    }
+    
+    /**
+     * 
+     * The event's broadcast name.
+     *
+     * @return string
+     */
+    public function broadcastAs()
+    {
+        return 'UpstreamEvent';
     }
 }
