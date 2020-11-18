@@ -80,12 +80,18 @@ class BridgeController extends Controller
      */
     public function show($id)
     {
-
-        $bridge = Bridge::join('devices', 'bridges.id', '=', 'devices.bridge_id')
+        $device = Device::where('bridge_id', $id);
+        if ($device->first()) {
+            $bridge = Bridge::join('devices', 'bridges.id', '=', 'devices.bridge_id')
             ->where('bridges.id', $id)
             ->select('bridges.*', 'devices.ttn_dev_id')
             ->get()
             ->first();
+        } else {
+            $bridge = Bridge::where('id', $id)
+                ->first();
+        }
+
 
         $sensors = $this->getSensorsOfBridge($id);
 

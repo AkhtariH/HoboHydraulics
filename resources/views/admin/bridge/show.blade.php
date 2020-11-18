@@ -161,18 +161,31 @@
 
 @section('inclusions')
     @parent
+    <script src="{{ asset('js/bootstrap-notify.min.js') }}"></script>
     <script src="{{ asset('js/socket.io.js') }}"></script>
     <script src="{{ url('/js/laravel-echo-setup.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         window.Echo.channel('sensor-channel')
          .listen('.UpstreamEvent', (data) => {
            if ($('.device').data('device')) {
-             // Notification new data received
+            $.notify({
+              // options
+              
+              message: '<span style="font-size: 20px;"><i class="fas fa-bell"></i></span> New data from device <strong>' + data.id + '</strong>!'  
+            },{
+              // settings
+              type: 'danger',
+              allow_dismiss: true,
+              newest_on_top: true,
+              showProgressbar: true,
+            });
+
             data.sensors.forEach(element => {
               var sensor = $('.device[data-device="' + data.id + '"]').find('.sensor[data-sensor="' + element.id + '"]');
               var threshold = sensor.find('.threshold').html();
 
               sensor.find('#sensor-data').html(element.data);
+
               if (element.data >= threshold) {
                 sensor.find('.notify-icon').html('<i class="fas fa-exclamation-triangle sensor-error"></i>');
               } else {

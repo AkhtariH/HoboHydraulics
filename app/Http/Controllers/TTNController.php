@@ -80,8 +80,9 @@ class TTNController extends Controller
                 $error = 0;
                 if ($sensor['data'] >= $sensorDB->threshold_value) {
                     $error = 1;
+                    
                     $sensorDB->data = $sensor['data'];
-                    //event(new SensorThresholdExceeded($sensorDB));
+                    event(new SensorThresholdExceeded($sensorDB));
                 }   
     
                 SensorData::create([
@@ -93,7 +94,7 @@ class TTNController extends Controller
 
                 
             }
-        }
+        }   
         
         event(new UpstreamEvent($request->id, $request->sensors));
 

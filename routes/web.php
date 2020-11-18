@@ -27,16 +27,16 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-
-Route::get('forgot-password', [PasswordResetController::class, 'index'])->middleware(['guest'])->name('password.request');
-Route::post('forgot-password', [PasswordResetController::class, 'email'])->middleware(['guest'])->name('password.email');
-Route::get('reset-password/{token}', [PasswordResetController::class, 'reset'])->middleware('guest')->name('password.reset');
-Route::post('reset-password', [PasswordResetController::class, 'update'])->middleware('guest')->name('password.update');
-
 // Login
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin']);
 Route::get('logout', [AuthController::class, 'logout'])->name('user.logout');
+
+// Forgot password
+Route::get('forgot-password', [PasswordResetController::class, 'index'])->middleware(['guest'])->name('password.request');
+Route::post('forgot-password', [PasswordResetController::class, 'email'])->middleware(['guest'])->name('password.email');
+Route::get('reset-password/{token}', [PasswordResetController::class, 'reset'])->middleware('guest')->name('password.reset');
+Route::post('reset-password', [PasswordResetController::class, 'update'])->middleware('guest')->name('password.update');
 
 // Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -55,5 +55,4 @@ Route::post('admin/assign', [AdminController::class, 'assign'])->middleware(['au
 
 // AJAX requests
 Route::post('threshold', [ThresholdController::class, 'threshold'])->middleware('auth')->name('threshold');
-
 Route::post('fire', [TTNController::class, 'index']);
