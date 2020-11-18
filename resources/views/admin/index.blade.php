@@ -125,7 +125,8 @@
             var lng = Math.round((msg.results[0].locations[0].latLng.lng + Number.EPSILON) * 100) / 100;
             var marker = { 
                 latLng: [lat, lng],
-                name: bridges[counter].name 
+                name: bridges[counter].name,
+                url: '/admin/bridge/' + bridges[counter].id
             };
             markerArr.push(marker);
             counter++;
@@ -166,7 +167,10 @@
                         }
                     },
                     backgroundColor: '#fff',
-                    markers: markerArr
+                    markers: markerArr,
+                    onMarkerClick: function(event, index) {
+                      window.location.href = markerArr[index].url;
+                    }
                 });
             }, 1000);
             

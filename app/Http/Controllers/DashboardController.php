@@ -58,18 +58,20 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        $bridge = Bridge::join('devices', 'bridges.id', '=', 'devices.bridge_id')
-        ->where('bridges.id', $id)
-        ->select('bridges.*', 'devices.ttn_dev_id')
-        ->get()
-        ->first(); // Only show bridges that are assigned to the user
+        $device = Device::where('bridge_id', $id);
+        if ($device->first()) {
+            $bridge = Bridge::join('devices', 'bridges.id', '=', 'devices.bridge_id')
+            ->join('user_bridge', 'bridges.id', '=', 'user_bridge.bridge_id')
+            ->where('bridges.id', $id)
+            ->select('bridges.*', 'devices.ttn_dev_id')
+            ->firstOrFail();
+        } else {
+            $bridge = Bridge::join('user_bridge', 'bridges.id', '=', 'user_bridge.bridge_id')
+                ->where('bridges.id', $id)
+                ->firstOrFail();
+        }
 
         $sensors = $this->getSensorsOfBridge($id);
-        // foreach ($sensors as $sensor) {
-        //     if ($sensor->data_collection[0]->error == true) {
-        //         event(new SensorThresholdExceeded($sensor));
-        //     }
-        // }
 
         return view('dashboard.show', compact('bridge', 'sensors'));
     }

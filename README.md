@@ -30,13 +30,12 @@
 - [X] Sends email when user is registered and when threshold is exceeded ``` feat/email ```
 - [X] Sends email when threshold is exceeded ``` feat/email ```
 - [X] Show bridges on map ``` feat/bridge-map ```
-- [ ] Redis broadcasting, listening for new sensor_data inserts and refresh sensor value on page
-- [ ] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
-- [ ] Refresh sensor page every minute ``` fix/color-sensor ```
-- [ ] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
-
-- [ ] Node.JS send email when threshold is exceeded (template see laravel emails/sensor.blade.php)
-
+- [X] Redis broadcasting, listening for new sensor_data inserts and refresh sensor value on page
+- [X] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
+- [X] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
+- [ ] Clean up code
+- [ ] Add help page
+- [ ] Create forgot password page
 npm install -g laravel-echo-server
 laravel-echo-server start
 
