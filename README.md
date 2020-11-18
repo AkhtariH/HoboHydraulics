@@ -10,6 +10,10 @@
 
 ...
 
+## Installation
+
+...
+
 ## ToDo
 ### Version 1.0
 
@@ -27,15 +31,20 @@
 - [X] Paginate for Bridge views
 - [X] Create Customer view (Can't change threhsold value)
 - [X] Edit profile page
-- [X] Sends email when user is registered and when threshold is exceeded ``` feat/email ```
-- [X] Sends email when threshold is exceeded ``` feat/email ```
-- [X] Show bridges on map ``` feat/bridge-map ```
+- [X] Sends email when user is registered and when threshold is exceeded
+- [X] Sends email when threshold is exceeded
+- [X] Show bridges on map
 - [X] Redis broadcasting, listening for new sensor_data inserts and refresh sensor value on page
-- [X] Give warning when threshold is exceeded for Color sensor ``` fix/color-sensor ```
-- [X] Open detail sensor view only if there are more than two data_collection ``` fix/color-sensor ```
+- [X] Give warning when threshold is exceeded for Color sensor
+- [X] Open detail sensor view only if there are more than two data_collection
+- [X] Instead of refreshing page, refresh only sensor values
+- [ ] Create forgot password page
+- [ ] Change email template for forgot password
 - [ ] Clean up code
 - [ ] Add help page
-- [ ] Create forgot password page
+- [ ] Test color sensor
+
+
 npm install -g laravel-echo-server
 laravel-echo-server start
 
@@ -48,17 +57,12 @@ redis-server
 - [ ] Add Manage sensors page
 - [ ] Change threshold controller to SensorController
 - [ ] Add ability to change date and time for graph in sensor detail page
-- [ ] Instead of refreshing page, refresh only sensor values
 - [ ] Dynamic locations map
 - [ ] Forgot password and email verification
 - [ ] Change notifications to slide down from the top
 
 ### Version 3.0
 - [ ] Roles and permission system
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
 ## Code of Conduct
 

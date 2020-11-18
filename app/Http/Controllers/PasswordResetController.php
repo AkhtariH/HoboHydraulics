@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 class PasswordResetController extends Controller
 {
+
     public function index() {
         return view('auth.forgot-password');
     }

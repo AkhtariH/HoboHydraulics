@@ -33,7 +33,7 @@
 
         <div class="form-group">
             <button class="btn btn-light btn-block p-2 mb-1" type="submit" name="submit">Login</button>
-            <a href="#">
+            <a href="/forgot-password">
                 <small class="force-white"><strong>Forgot password?</strong></small>
             </a>
         </div>
