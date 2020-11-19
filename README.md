@@ -42,6 +42,7 @@
 - [X] Change email template for forgot password
 - [X] Add help page
 - [X] Change help page pagiantor to carousel Jquery
+- [ ] Help page cleaner code
 - [ ] Clean up code
 - [ ] Test color sensor
 
