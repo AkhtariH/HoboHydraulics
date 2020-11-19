@@ -38,8 +38,8 @@
 - [X] Give warning when threshold is exceeded for Color sensor
 - [X] Open detail sensor view only if there are more than two data_collection
 - [X] Instead of refreshing page, refresh only sensor values
-- [ ] Create forgot password page
-- [ ] Change email template for forgot password
+- [X] Create forgot password page
+- [X] Change email template for forgot password
 - [ ] Clean up code
 - [ ] Add help page
 - [ ] Test color sensor
