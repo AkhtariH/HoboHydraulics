@@ -44,208 +44,221 @@
   </head>
 
 <body>
-    <!--Page loader-->
-    <div class="loader-wrapper">
-        <div class="loader-circle">
-            <div class="loader-wave"></div>
+    <div class="mobile-fix">
+        <!--Page loader-->
+        <div class="loader-wrapper">
+            <div class="loader-circle">
+                <div class="loader-wave"></div>
+            </div>
         </div>
-    </div>
-    <!--Page loader-->
-
-    <!--Page Wrapper-->
-
-    <div class="container-fluid">
-
-        @section('header')
-        <!--Header-->
-        <div class="row header shadow-sm">
-            <!--Logo-->
-            <div class="col-sm-3 pl-0 text-center header-logo">
-                <div class="bg-theme mr-3 pt-3 pb-2 mb-0">
-                    <h3 class="logo"><a href="{{ route('dashboard') }}" class="text-secondary logo"><i class="fa fa-dashboard"></i> HoboHydrauliek<span class="small"> Dashboard</span></a></h3>
-                </div>
-            </div>
-            <!--Logo-->
-
-            <!--Header Menu-->
-            <div class="col-sm-9 header-menu pt-2 pb-0">
-                <div class="row">
-                    <!--Search box and avatar-->
-                    <div class="col-sm-12 col-4 text-right flex-header-menu justify-content-end">
-                        <div class="mr-4">
-                            <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="default-avatar" class="rounded-circle" width="40px" height="40px">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fa fa-user pr-2"></i> Profile</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i> Tasks</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('user.logout') }}"><i class="fa fa-power-off pr-2"></i> Logout</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Search box and avatar-->
-                </div>
-            </div>
-            <!--Header Menu-->
-        </div>
-        <!--Header-->
-        @show
-
-        <!--Main Content-->
-
-        <div class="row main-content">
-            @section('sidebar')
-            <!--Sidebar left-->
-            <div class="col-sm-3 col-xs-6 sidebar pl-0">
-                <div class="inner-sidebar mr-3">
-                    <!--Image Avatar-->
-                    <div class="avatar text-center">
-                        <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="" class="rounded-circle" />
-                        <p><strong>Welcome<br>{{ ucfirst(Auth()->user()->name) }}!</strong></p>
-                        <span class="text-danger small"><strong>{{ ucfirst(Auth()->user()->type) }}</strong></span>
-                    </div>
-                    <!--Image Avatar-->
-
-                    <!--Sidebar Navigation Menu-->
-                    <div class="sidebar-menu-container">
-                        @if (Route::is('admin.*') == false)
-                            @if (Auth()->user()->isAdmin())
-                                <ul class="sidebar-menu mt-4 mb-4">
-                                    <li class="parent">
-                                        <a href="{{ route('admin.index') }}" class=""><i class="fas fa-toolbox mr-3"></i>
-                                            <span class="none">Admin Panel</span>
-                                        </a>
-                                    </li>
-                                </ul>                            
-                            @endif
-                            <ul class="sidebar-menu mt-4 mb-4">
-                                <li class="parent">
-                                    <a href="{{ route('profile.index') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                                        <span class="none">My Profile</span>
-                                    </a>
-                                </li>
-                                <li class="parent">
-                                    @if (Route::is('dashboard'))
-                                        <a href="#" onclick="toggle_menu('dashboard'); return false" class=""><i class="fa fa-dashboard mr-3"> </i>
-                                            <span class="none">Bridges<i class="fa fa-angle-down pull-right align-bottom"></i></span>
-                                        </a>
-                                        <ul class="children" id="dashboard">
-                                            @foreach ($bridges as $bridge) 
-                                                <li class="child"><a href="" class="ml-4"><i class="fa fa-angle-right mr-2"></i>{{ $bridge->name }}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                        <a href="{{ route('dashboard') }}" class=""><i class="fa fa-dashboard mr-3"> </i>
-                                            <span class="none">Bridges</span>
-                                        </a>
-                                    @endif
-                                </li>
-                                <li class="parent">
-                                    <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                                        <span class="none">Tasks</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        @else
-                            {{-- Admin Panel --}}
-                            <ul class="sidebar-menu mt-4 mb-4">
-                                <li class="parent">
-                                    <a href="{{ route('admin.index') }}" class=""><i class="fas fa-tachometer-alt mr-3"></i>
-                                        <span class="none">Admin Dashboard</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="sidebar-menu mt-4 mb-4">
-                                <li class="parent">
-                                    <a href="{{ url('admin/user') }}" class=""><i class="fas fa-users mr-3"></i>
-                                        <span class="none">Manage users</span>
-                                    </a>
-                                </li>
-                                <li class="parent">
-                                    <a href="{{ url('admin/bridge') }}" class=""><i class="fas fa-edit mr-3"></i>
-                                        <span class="none">Manage bridges</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="sidebar-menu mt-4 mb-4">
-                                <li class="parent">
-                                    <a href="{{ url('admin/help') }}" class=""><i class="fas fa-question-circle mr-3"></i>
-                                        <span class="none">Manual</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="sidebar-menu mt-4 mb-4">
-                                <li class="parent">
-                                    <a href="{{ route('dashboard') }}" class=""><i class="fas fa-chevron-left mr-3"></i>
-                                        <span class="none">Dashboard</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        @endif
-                    </div>
-                    <!--Sidebar Naigation Menu-->
-                </div>
-            </div>
-            <!--Sidebar left-->
-            @show
-
-
-            <!--Content right-->
-            <div class="col-sm-9 col-xs-12 content pt-3 pl-0">
-                @yield('content')
-            </div>
-            <!--Main Content-->
-
-        </div>
+        <!--Page loader-->
 
         <!--Page Wrapper-->
 
-        @section('inclusions')
-        <!-- Page JavaScript Files-->
-        <script src="{{ asset('/js/jquery.min.js') }}"></script>
-        <script src="{{ asset('/js/jquery-1.12.4.min.js') }}"></script>
-        <!--Popper JS-->
-        <script src="{{ asset('/js/popper.min.js') }}"></script>
-        <!--Bootstrap-->
-        <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-        <!--Sweet alert JS-->
-        <script src="{{ asset('/js/sweetalert.js') }}"></script>
-        <!--Progressbar JS-->
-        <script src="{{ asset('/js/progressbar.min.js') }}"></script>
-        <!--Flot.JS-->
-        <script src="{{ asset('/js/charts/jquery.flot.min.js') }}"></script>
-        <script src="{{ asset('/js/charts/jquery.flot.pie.min.js') }}"></script>
-        <script src="{{ asset('/js/charts/jquery.flot.categories.min.js') }}"></script>
-        <script src="{{ asset('/js/charts/jquery.flot.stack.min.js') }}"></script>
-        <!--Chart JS-->
-        <script src="{{ asset('/js/charts/chart.min.js') }}"></script>
-        <!--Chartist JS-->
-        <script src="{{ asset('/js/charts/chartist.min.js') }}"></script>
-        <script src="{{ asset('/js/charts/chartist-data.js') }}"></script>
-        <script src="{{ asset('/js/charts/demo.js') }}"></script>
-        <!--Maps-->
-        <script src="{{ asset('/js/maps/jquery-jvectormap-2.0.2.min.js') }}"></script>
-        <script src="{{ asset('/js/maps/jquery-jvectormap-nl-merc.js') }}"></script>
-        <script src="{{ asset('/js/maps/jvector-maps.js') }}"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyA4eWTX_mKS6eEE5SPpGN7TLZe41m-7waY"></script>
-        <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
-        <script src="{{ asset('/js/maps/google-map-data.js') }}"></script>
-        <!--Bootstrap Calendar JS-->
-        <script src="{{ asset('/js/calendar/bootstrap_calendar.js') }}"></script>
-        <script src="{{ asset('/js/calendar/demo.js') }}"></script>
-        <!--Nice select-->
-        <script src="{{ asset('/js/jquery.nice-select.min.js') }}"></script>
+        <div class="container-fluid">
 
-        <!--Custom Js Script-->
-        <script src="{{ asset('/js/custom.js') }}"></script>
-        <!--Custom Js Script-->
-        <script>
-            //Nice select
-            $('.bulk-actions').niceSelect();
-        </script>
-        @show
+            @section('header')
+            <!--Header-->
+            <div class="row header shadow-sm">
+                <!--Logo-->
+                <div class="col-sm-3 pl-0 text-center header-logo">
+                    <div class="bg-theme mr-3 pt-3 pb-2 mb-0">
+                        <h3 class="logo"><a href="{{ route('dashboard') }}" class="text-secondary logo"><i class="fa fa-dashboard"></i> HoboHydrauliek<span class="small"> Dashboard</span></a></h3>
+                    </div>
+                </div>
+                <!--Logo-->
+
+                <!--Header Menu-->
+                <div class="col-sm-9 header-menu pt-2 pb-0">
+                    <div class="row">
+                        <!--Menu Icons-->
+                        <div class="col-sm-4 col-8 pl-0">
+                            <!--Toggle sidebar-->
+                            <span class="menu-icon" onclick="toggle_sidebar()">
+                                <span id="sidebar-toggle-btn"></span>
+                            </span>
+                            <!--Toggle sidebar-->
+                        </div>
+                        <!--Menu Icons-->
+
+                        <!--Search box and avatar-->
+                        <div class="col-sm-8 col-4 text-right flex-header-menu justify-content-end">
+                            <div class="mr-4">
+                                <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="default-avatar" class="rounded-circle" width="40px" height="40px">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fa fa-user pr-2"></i> Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i> Tasks</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('user.logout') }}"><i class="fa fa-power-off pr-2"></i> Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Search box and avatar-->
+                    </div>
+                </div>
+                <!--Header Menu-->
+            </div>
+            <!--Header-->
+            @show
+
+            <!--Main Content-->
+
+            <div class="row main-content">
+                @section('sidebar')
+                <!--Sidebar left-->
+                <div class="col-sm-3 col-xs-6 sidebar pl-0">
+                    <div class="inner-sidebar mr-3">
+                        <!--Image Avatar-->
+                        <div class="avatar text-center">
+                            <img src="{{ asset('/img/uploads') . '/' . Auth()->user()->profile_image }}" alt="" class="rounded-circle" />
+                            <p><strong>Welcome<br>{{ ucfirst(Auth()->user()->name) }}!</strong></p>
+                            <span class="text-danger small"><strong>{{ ucfirst(Auth()->user()->type) }}</strong></span>
+                        </div>
+                        <!--Image Avatar-->
+
+                        <!--Sidebar Navigation Menu-->
+                        <div class="sidebar-menu-container">
+                            @if (Route::is('admin.*') == false)
+                                @if (Auth()->user()->isAdmin())
+                                    <ul class="sidebar-menu mt-4 mb-4">
+                                        <li class="parent">
+                                            <a href="{{ route('admin.index') }}" class=""><i class="fas fa-toolbox mr-3"></i>
+                                                <span class="none">Admin Panel</span>
+                                            </a>
+                                        </li>
+                                    </ul>                            
+                                @endif
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="{{ route('profile.index') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                            <span class="none">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li class="parent">
+                                        @if (Route::is('dashboard'))
+                                            <a href="#" onclick="toggle_menu('dashboard'); return false" class=""><i class="fa fa-dashboard mr-3"> </i>
+                                                <span class="none">Bridges<i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                                            </a>
+                                            <ul class="children" id="dashboard">
+                                                @foreach ($bridges as $bridge) 
+                                                    <li class="child"><a href="" class="ml-4"><i class="fa fa-angle-right mr-2"></i>{{ $bridge->name }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <a href="{{ route('dashboard') }}" class=""><i class="fa fa-dashboard mr-3"> </i>
+                                                <span class="none">Bridges</span>
+                                            </a>
+                                        @endif
+                                    </li>
+                                    <li class="parent">
+                                        <a href="#" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                                            <span class="none">Tasks</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            @else
+                                {{-- Admin Panel --}}
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="{{ route('admin.index') }}" class=""><i class="fas fa-tachometer-alt mr-3"></i>
+                                            <span class="none">Admin Dashboard</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="{{ url('admin/user') }}" class=""><i class="fas fa-users mr-3"></i>
+                                            <span class="none">Manage users</span>
+                                        </a>
+                                    </li>
+                                    <li class="parent">
+                                        <a href="{{ url('admin/bridge') }}" class=""><i class="fas fa-edit mr-3"></i>
+                                            <span class="none">Manage bridges</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="{{ url('admin/help') }}" class=""><i class="fas fa-question-circle mr-3"></i>
+                                            <span class="none">Manual</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="sidebar-menu mt-4 mb-4">
+                                    <li class="parent">
+                                        <a href="{{ route('dashboard') }}" class=""><i class="fas fa-chevron-left mr-3"></i>
+                                            <span class="none">Dashboard</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            @endif
+                        </div>
+                        <!--Sidebar Naigation Menu-->
+                    </div>
+                </div>
+                <!--Sidebar left-->
+                @show
+
+
+                <!--Content right-->
+                <div class="col-sm-9 col-xs-12 content pt-3 pl-0">
+                    @yield('content')
+                </div>
+                <!--Main Content-->
+
+            </div>
+
+            <!--Page Wrapper-->
+
+            @section('inclusions')
+            <!-- Page JavaScript Files-->
+            <script src="{{ asset('/js/jquery.min.js') }}"></script>
+            <script src="{{ asset('/js/jquery-1.12.4.min.js') }}"></script>
+            <!--Popper JS-->
+            <script src="{{ asset('/js/popper.min.js') }}"></script>
+            <!--Bootstrap-->
+            <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+            <!--Sweet alert JS-->
+            <script src="{{ asset('/js/sweetalert.js') }}"></script>
+            <!--Progressbar JS-->
+            <script src="{{ asset('/js/progressbar.min.js') }}"></script>
+            <!--Flot.JS-->
+            <script src="{{ asset('/js/charts/jquery.flot.min.js') }}"></script>
+            <script src="{{ asset('/js/charts/jquery.flot.pie.min.js') }}"></script>
+            <script src="{{ asset('/js/charts/jquery.flot.categories.min.js') }}"></script>
+            <script src="{{ asset('/js/charts/jquery.flot.stack.min.js') }}"></script>
+            <!--Chart JS-->
+            <script src="{{ asset('/js/charts/chart.min.js') }}"></script>
+            <!--Chartist JS-->
+            <script src="{{ asset('/js/charts/chartist.min.js') }}"></script>
+            <script src="{{ asset('/js/charts/chartist-data.js') }}"></script>
+            <script src="{{ asset('/js/charts/demo.js') }}"></script>
+            <!--Maps-->
+            <script src="{{ asset('/js/maps/jquery-jvectormap-2.0.2.min.js') }}"></script>
+            <script src="{{ asset('/js/maps/jquery-jvectormap-nl-merc.js') }}"></script>
+            <script src="{{ asset('/js/maps/jvector-maps.js') }}"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyA4eWTX_mKS6eEE5SPpGN7TLZe41m-7waY"></script>
+            <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+            <script src="{{ asset('/js/maps/google-map-data.js') }}"></script>
+            <!--Bootstrap Calendar JS-->
+            <script src="{{ asset('/js/calendar/bootstrap_calendar.js') }}"></script>
+            <script src="{{ asset('/js/calendar/demo.js') }}"></script>
+            <!--Nice select-->
+            <script src="{{ asset('/js/jquery.nice-select.min.js') }}"></script>
+
+            <!--Custom Js Script-->
+            <script src="{{ asset('/js/custom.js') }}"></script>
+            <!--Custom Js Script-->
+            <script>
+                //Nice select
+                $('.bulk-actions').niceSelect();
+            </script>
+            @show
+    
+    </div>
 </body>
 
 </html>

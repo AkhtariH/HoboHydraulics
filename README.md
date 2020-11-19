@@ -42,15 +42,19 @@
 - [X] Change email template for forgot password
 - [X] Add help page
 - [X] Change help page pagiantor to carousel Jquery
+- [ ] Create defualt admin on laravel init
 - [ ] Help page cleaner code
 - [ ] Clean up code
 - [ ] Test color sensor
-
 
 npm install -g laravel-echo-server
 laravel-echo-server start
 
 redis-server
+
+node index.js (the ttn server)
+
+Change smtp settings
 
 
 ### Version 2.0
@@ -66,6 +70,7 @@ redis-server
 
 ### Version 3.0
 - [ ] Roles and permission system
+- [ ] Messaging system
 
 ## Code of Conduct
 

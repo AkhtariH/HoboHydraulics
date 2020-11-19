@@ -178,6 +178,7 @@
               allow_dismiss: true,
               newest_on_top: true,
               showProgressbar: true,
+              delay: 20000,
             });
 
             data.sensors.forEach(element => {
