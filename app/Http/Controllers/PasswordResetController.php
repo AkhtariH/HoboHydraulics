@@ -9,8 +9,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
+use App\Models\User;
+use App\Mail\ResetMail;
+
+use Mail;
+
 class PasswordResetController extends Controller
 {
+    const MAIL_SUCCESS = 'The reset email has been sent succefully!';
+    const MAIL_FAILURE = 'The entered email address does not exist!';
 
     public function index() {
         return view('auth.forgot-password');
@@ -18,18 +25,25 @@ class PasswordResetController extends Controller
 
     public function email(Request $request) {
         $request->validate(['email' => 'required|email']);
+        $user = User::where('email', $request->email)->first();
+        
+        if ($user !== null) {
+            $status = self::MAIL_SUCCESS;
+            $token = Password::getRepository()->create($user);
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+            Mail::to($user)->send(new ResetMail($user, $token));
+        } else {
+            $status = self::MAIL_FAILURE;
+        }
+
     
-        return $status === Password::RESET_LINK_SENT
+        return $status === self::MAIL_SUCCESS
                     ? back()->with(['status' => __($status)])
                     : back()->withErrors(['email' => __($status)]);
     }
 
-    public function reset($token) {
-        return view('auth.reset-password', ['token' => $token]);
+    public function reset($token, $email = null) {
+        return view('auth.reset-password', ['token' => $token, 'email' => $email]);
     }
 
     public function update(Request $request) {

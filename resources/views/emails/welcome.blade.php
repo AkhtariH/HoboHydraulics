@@ -351,9 +351,9 @@ ul.social li{
             			<div class="text" style="padding: 0 2.5em; text-align: center;">
                             <h3>Welcome <strong>{{ $user->name }}</strong>!</h3>
                             <p>You are succesfully registered as {{ $user->type == 'customer' ? 'a' : 'an' }} <strong>{{ ucfirst($user->type) }}</strong> on Hobo Hydrauliek.</p>
-                            <p>The last step is to <a href="{{ URL::to('/reset-password') . '/' . $token }}" target="_blank">set a password for your account.</a></p>
+                            <p>The last step is to <a href="{{ URL::to('/reset-password') . '/' . $token . '/' . $user->email }}" target="_blank">set a password for your account.</a></p>
                             <br>
-                            <p><a href="{{ URL::to('/reset-password') . '/' . $token }}" class="btn btn-primary" target="_blank">Set password</a></p>
+                            <p><a href="{{ URL::to('/reset-password') . '/' . $token . '/' . $user->email }}" class="btn btn-primary" target="_blank">Set password</a></p>
             			</div>
             		</td>
             	</tr>

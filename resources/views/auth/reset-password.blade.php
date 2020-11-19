@@ -21,7 +21,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
             </div>
-            <input type="email" name="email" class="form-control mt-0" placeholder="E-Mail adress" aria-label="E-Mail" aria-describedby="basic-addon1">
+            <input type="email" name="email" value="{{ $email }}" class="form-control mt-0" placeholder="E-Mail adress" aria-label="E-Mail" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">

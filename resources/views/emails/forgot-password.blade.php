@@ -23,6 +23,12 @@ body {
     background: #f1f1f1;
 }
 
+table.subcopy {
+width: 100%;
+-webkit-border-horizontal-spacing: 0px;
+-webkit-border-vertical-spacing: 0px;
+}
+
 /* What it does: Stops email clients resizing small text. */
 * {
     -ms-text-size-adjust: 100%;
@@ -340,7 +346,7 @@ ul.social li{
 	      </tr><!-- end tr -->
 	      <tr>
           <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">
-            <img src="{{ asset('img/password.png') }}" alt="" style="margin: 0 auto;border-radius: 50%;width:150px;height:150px;object-fit:cover;vertical-align:middle;display: block;">
+            <img src="{{ asset('img/password.png') }}" alt="" style="margin: 0 auto;width:150px;height:150px;object-fit:cover;vertical-align:middle;display: block;">
           </td>
 	      </tr><!-- end tr -->
 				<tr>
@@ -348,13 +354,15 @@ ul.social li{
             <table>
             	<tr>
             		<td>
-            			<div class="text" style="padding: 0 2.5em; text-align: center;">
-                            <h3></strong>!</h3>
-                            <p></p>
-                            <p></a></p>
-                            <br>
-                            <p></p>
-            			</div>
+                        <div class="text" style="padding: 0 2.5em; text-align: center;">
+                            <h3>Hello, <strong>{{ $user->name }}</strong>!</h3>
+                            <p style="text-align: left;">You are receiving this email because we received a password reset request for your account.</p>
+                            <p style="text-align: left;">This password reset link will expire in 60 minutes.</p>
+                            <p style="text-align: left;">If you did not request a password reset, no further action is required.</p>
+                            <p style="text-align: left;">Regards,</p>
+                            <p style="text-align: left;">Hobo Hydrauliek</p>
+                            <p><a href="{{ URL::to('/reset-password') . '/' . $token . '/' . $user->email }}" class="btn btn-primary" target="_blank">Reset password</a></p>
+                        </div>
             		</td>
             	</tr>
             </table>

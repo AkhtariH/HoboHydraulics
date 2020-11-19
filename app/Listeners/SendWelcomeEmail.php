@@ -8,6 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Mail\Message;
 
+use App\Models\User;
 use App\Mail\WelcomeMail;
 
 use Mail;
@@ -35,9 +36,6 @@ class SendWelcomeEmail
         $user = $event->user;
         $token = Password::getRepository()->create($user);
         
-        Mail::send('emails.welcome', ['user' => $user, 'token' => $token], function (Message $message) use ($user) {
-            $message->subject(config('app.name') . ' - Password Reset Link');
-            $message->to($user->email);
-        });
+        Mail::to($user)->send(new WelcomeMail($user, $token));
     }
 }

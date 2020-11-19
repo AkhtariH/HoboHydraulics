@@ -26,6 +26,9 @@
 
         <div class="form-group">
             <button class="btn btn-light btn-block p-2 mb-1" type="submit" name="submit">Send email</button>
+            <a href="/login">
+                <small class="force-white"><strong><i class="fas fa-arrow-circle-left"></i> Back to login</strong></small>
+            </a>
         </div>
         
     </form>
