@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BridgeController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\TTNController;
+use App\Http\Controllers\ManualController;
 
 
 /*
@@ -52,6 +53,9 @@ Route::resource('admin/user', UserController::class)->middleware(['auth', 'is_ad
 Route::resource('admin/bridge', BridgeController::class)->middleware(['auth', 'is_admin'])->names('admin.bridge');
 Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'is_admin'])->name('admin.index');
 Route::post('admin/assign', [AdminController::class, 'assign'])->middleware(['auth', 'is_admin'])->name('admin.assign');
+
+// Admin manual
+Route::get('admin/help', [AdminController::class, 'help'])->middleware(['auth', 'is_admin'])->name('admin.help');
 
 // AJAX requests
 Route::post('threshold', [ThresholdController::class, 'threshold'])->middleware('auth')->name('threshold');

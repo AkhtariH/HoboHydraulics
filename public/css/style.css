@@ -2115,6 +2115,10 @@ input[type="checkbox"]:checked + .font-15 {
     background-color: #dc3545;
 }
 
+.custom-middle {
+    margin: 0 auto;
+}
+
 /*==============Error 404 rules ==================*/
 
 @media only screen and (max-width: 1074px) {

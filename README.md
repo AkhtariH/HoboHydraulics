@@ -40,8 +40,9 @@
 - [X] Instead of refreshing page, refresh only sensor values
 - [X] Create forgot password page
 - [X] Change email template for forgot password
+- [X] Add help page
+- [X] Change help page pagiantor to carousel Jquery
 - [ ] Clean up code
-- [ ] Add help page
 - [ ] Test color sensor
 
 
@@ -60,6 +61,7 @@ redis-server
 - [ ] Dynamic locations map
 - [ ] Forgot password and email verification
 - [ ] Change notifications to slide down from the top
+- [ ] Make UserController for actual user and ove password reset to usercontroller
 
 ### Version 3.0
 - [ ] Roles and permission system

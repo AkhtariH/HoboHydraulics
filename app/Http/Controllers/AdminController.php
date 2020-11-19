@@ -12,6 +12,8 @@ use App\Models\UserBridge;
 use App\Models\Sensor;
 use App\Models\SensorData;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 use App\Http\Requests\AdminAssignRequest;
 
@@ -65,4 +67,9 @@ class AdminController extends Controller
 
         return response()->json(array('msg', 'Success!'), 200);
     }
+
+    public function help() {
+        return view('admin.manual.index');
+    }
+
 }

@@ -34,6 +34,7 @@
 
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
+    <link rel="stylesheet" href="{{ asset('/css/glider.min.css') }}">
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -165,6 +166,13 @@
                                 <li class="parent">
                                     <a href="{{ url('admin/bridge') }}" class=""><i class="fas fa-edit mr-3"></i>
                                         <span class="none">Manage bridges</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="sidebar-menu mt-4 mb-4">
+                                <li class="parent">
+                                    <a href="{{ url('admin/help') }}" class=""><i class="fas fa-question-circle mr-3"></i>
+                                        <span class="none">Manual</span>
                                     </a>
                                 </li>
                             </ul>
