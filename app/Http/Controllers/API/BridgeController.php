@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use Validator;
 use App\Http\Resources\Bridge as BridgeResource;
 
 use App\Models\Bridge;
@@ -70,6 +69,7 @@ class BridgeController extends BaseController
         }
 
         $sensors = $this->getSensorsOfBridge($id);
+        $bridge->sensors = $sensors;
 
         if (is_null($bridge)) {
             return $this->sendError('Bridge not found.');
