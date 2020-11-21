@@ -46,6 +46,7 @@
 - [ ] Help page cleaner code
 - [ ] Clean up code
 - [ ] Test color sensor
+- [ ] Create bridge api and connect flutter app to it
 
 npm install -g laravel-echo-server
 laravel-echo-server start
@@ -71,6 +72,7 @@ Change smtp settings
 ### Version 3.0
 - [ ] Roles and permission system
 - [ ] Messaging system
+- [ ] Mobile app
 
 ## Code of Conduct
 
