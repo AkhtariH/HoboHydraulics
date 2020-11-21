@@ -42,11 +42,12 @@
 - [X] Change email template for forgot password
 - [X] Add help page
 - [X] Change help page pagiantor to carousel Jquery
+- [ ] Create bridge api and connect flutter app to it
+- [ ] getSensorsOfBridge 
 - [ ] Create defualt admin on laravel init
 - [ ] Help page cleaner code
 - [ ] Clean up code
 - [ ] Test color sensor
-- [ ] Create bridge api and connect flutter app to it
 
 npm install -g laravel-echo-server
 laravel-echo-server start
