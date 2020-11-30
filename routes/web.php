@@ -12,7 +12,6 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\TTNController;
 use App\Http\Controllers\ManualController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

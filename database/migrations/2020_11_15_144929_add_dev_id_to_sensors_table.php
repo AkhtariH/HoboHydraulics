@@ -27,6 +27,7 @@ class AddDevIdToSensorsTable extends Migration
     public function down()
     {
         Schema::table('sensors', function (Blueprint $table) {
+            $table->dropForeign(['device_id']);
             $table->dropColumn('device_id');
         });
     }

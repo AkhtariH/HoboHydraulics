@@ -40,21 +40,6 @@
                     <input type="email" name="email" value="{{ $user->email }}" class="form-control mt-0" placeholder="e-Mail" aria-label="e-Mail" aria-describedby="basic-addon1">
                 </div>
         
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
-                    </div>
-                    <input type="password" name="password" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-                </div>
-        
-                <div class="input-group mb-3">
-                    <select name="type" class="form-control">
-                        <option value="customer" {{ $user->type == 'customer' ? 'selected': '' }}>Customer</option>
-                        <option value="employee" {{ $user->type == 'employee' ? 'selected': '' }}>Employee</option>
-                        <option value="admin" {{ $user->type == 'admin' ? 'selected': '' }}>Administrator</option>
-                    </select>
-                </div>
-        
                 <div class="form-group">
                     <button class="btn btn-light btn-block p-2 mb-1" type="submit" name="submit">Submit</button>
                 </div>

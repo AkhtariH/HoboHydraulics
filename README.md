@@ -1,4 +1,4 @@
-# Hobo Hydralic APP
+<p align="center"><img src="https://hobohydrauliek.nl/wp-content/uploads/2019/04/cropped-Logo-2019-1.jpg" width="200" alt="Logo"></p>
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
@@ -6,13 +6,25 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Hobo Hydraulic
+## Description
 
-...
+The objective of this minor is to create a full infrastructure to check maintenance for hydraulic bridges. This will save time and money, the mechanics do not have to check the bridges physically. This project will be carried out on behalf IoT Nederland and Hobo Hydrauliek.
 
 ## Installation
 
-...
+1. ``` git clone https://github.com/AkhtariH/HoboHydraulics.git ```
+2. ``` cd HoboHydraulics ```
+3. ``` composer install ```
+4. ``` npm install ```
+5. ``` npm install -g laravel-echo-server ```
+6. ``` brew install redis-server ```
+7. Modify ``` .env ``` file (DB, SMTP credentials, redis)
+8. ``` php artisan migrate ```
+9. ``` php artisan passport:client --personal ```
+10. ``` redis-server ```
+11. ``` laravel-echo-server start ```
+12. Start node JS server (TTN) ``` node index.js ```
+13. ``` php artisan serve ```
 
 ## ToDo
 ### Version 1.0
@@ -42,25 +54,20 @@
 - [X] Change email template for forgot password
 - [X] Add help page
 - [X] Change help page pagiantor to carousel Jquery
-- [ ] Create bridge api and connect flutter app to it
+- [X] Create bridge api and connect flutter app to it
+- [X] Delete api token after logout in app
+- [ ] Middleware group for routes web (see api routes)
+- [ ] Refresh Graph after redis event
+- [ ] Listener for new data -> notification + refresh data in APP
+- [ ] Design App
 - [ ] getSensorsOfBridge 
 - [ ] Create defualt admin on laravel init
-- [ ] Help page cleaner code
 - [ ] Clean up code
-- [ ] Test color sensor
-
-npm install -g laravel-echo-server
-laravel-echo-server start
-
-redis-server
-
-node index.js (the ttn server)
-
-Change smtp settings
 
 
 ### Version 2.0
 
+- [ ] 
 - [ ] Add tasks page
 - [ ] Add Manage sensors page
 - [ ] Change threshold controller to SensorController
@@ -77,7 +84,7 @@ Change smtp settings
 
 ## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+[Code of Conduct](https://drive.google.com/drive/folders/1vlOG79cCyByT_JbV24JGf1kFkqOoX6yW).
 
 ## Security Vulnerabilities
 

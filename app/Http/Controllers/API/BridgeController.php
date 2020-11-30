@@ -27,6 +27,7 @@ class BridgeController extends BaseController
                         ->where('user_bridge.user_id', Auth()->user()->id)
                         ->latest()
                         ->get();
+        
 
         // $bridges = Bridge::where('')->latest()->paginate(9);
         foreach($bridges as $bridge) {

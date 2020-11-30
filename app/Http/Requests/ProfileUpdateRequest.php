@@ -26,7 +26,6 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'email|required',
-            'type' => 'required',
             'profile_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
@@ -42,7 +41,6 @@ class ProfileUpdateRequest extends FormRequest
             'name.required' => 'Name is required!',
             'email.required' => 'Email is required!',
             'email.email' => 'This is not a valid email adress!',
-            'type.required' => 'Account type is required!'
         ];
     }
 }

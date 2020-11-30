@@ -51,11 +51,7 @@ class ProfileController extends Controller
         $request->validated();
 
         $user = Auth::user();
-        $data = collect($request->except(['password', 'profile_image']));
-        
-        if ($request->has('password') && $request->password != '') {
-            $data->put('password', Hash::make($request['password']));
-        }
+        $data = collect($request->except(['profile_image']));
 
         if ($request->has('profile_image')) {
             $imageName = time() . '.' . $request->profile_image->extension();  

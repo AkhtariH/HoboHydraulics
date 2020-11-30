@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\BridgeController;
+use App\Http\Controllers\API\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,6 @@ Route::post('login', [LoginController::class, 'index']);
 
 Route::middleware('auth:api')->group( function () {
     Route::resource('bridges', BridgeController::class);
+    Route::get('/user', function (Request $request){ return $request->user(); });
+    Route::post('logout', [LoginController::class, 'logout']);
 });
