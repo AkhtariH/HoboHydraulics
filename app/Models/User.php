@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\Trackable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Trackable, HasApiTokens;
 
     const ADMIN_ROLE = 'admin';
     const DEFAULT_ROLE = 'employee';
@@ -23,7 +25,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type'
+        'type',
+        'profile_image'
     ];
 
     /**

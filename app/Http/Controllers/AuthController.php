@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
 
+use App\Http\Requests\AuthLoginRequest;
+
 class AuthController extends Controller
 {
+    
     public function index() {
         if (Auth::check()){
             return Redirect::to('dashboard');           
@@ -24,11 +27,8 @@ class AuthController extends Controller
         return view('register');
     }
 
-    public function postLogin(Request $request) {
-        request()->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
+    public function postLogin(AuthLoginRequest $request) {
+        $request->validated();
 
         $credentials = $request->only('email', 'password');
 
@@ -41,29 +41,6 @@ class AuthController extends Controller
         return Redirect::to('login')->withErrors(['Entered credetnials are wrong!']);
     }
 
-    public function postRegister(Request $request) {
-        request()->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
-        ]);
-
-        $data = $request->all();
-
-        $check = $this->create($data);
-
-        return Redirect::to('dashboard')->withSuccess('You have been logged in!');
-    }
-
-    public function dashboard() {
-        if (Auth::check()) {
-            $bridges = Bridge::all();
-            
-            return view('dashboard', compact('bridges'));
-        }
-
-        return Redirect::to('login')->withErrors(['You have to be logged in!']);
-    }
 
     public function create(array $data) {
         return User::create([

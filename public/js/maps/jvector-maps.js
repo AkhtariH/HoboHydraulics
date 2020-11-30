@@ -207,24 +207,5 @@ $(function(){
     }
 
     //NetherlandsMap
-    if($("#NLMap").length) {
-        $('#NLMap').vectorMap({
-            map: 'nl_merc',
-            scaleColors: ['#C8EEFF', '#0071A4'],
-            normalizeFunction: 'polynomial',
-            hoverOpacity: 0.7,
-            hoverColor: false,
-            regionStyle:{initial:{fill:"#004d40"}},
-            markerStyle: {
-                initial: {
-                fill: '#5c5c5c',
-                stroke: '#efefef'
-                }
-            },
-            backgroundColor: '#fff',
-            markers: [
-                {latLng: [52.57, 6.08], name: 'Bridge1'},
-            ]
-        });
-    }
+
 });

@@ -4,10 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Bridge;
+use App\Models\UserBridge;
 use Illuminate\Support\Facades\Hash;
+
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+
+use App\Events\NewUserRegistered;
 
 class UserController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,21 +49,16 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'type' => 'required'
-        ]);
+        $request->validated();
 
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
 
         $check = User::create($data);
 
-        // TODO: send email with credentials
+        event(new NewUserRegistered($check));
 
         return redirect()->route('admin.user.index')->with('success', 'User has been created!');
     }
@@ -65,7 +71,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        // Show user with all their assigned bridges
+        $user = User::findOrFail($id);
+        $bridges = User::join('user_bridge', 'users.id', '=', 'user_bridge.user_id')
+                        ->join('bridges', 'user_bridge.bridge_id', '=', 'bridges.id')
+                        ->where('users.id', $id)
+                        ->select('users.*', 'bridges.name', 'bridges.adress', 'bridges.supervisor')
+                        ->get();
+
+        return view('admin.user.show', compact('user', 'bridges'));
     }
 
     /**
@@ -87,13 +100,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'email|required',
-            'type' => 'required'
-        ]);
+        $request->validated();
 
         $data = $request->except('password');
         if ($request->has('password') && $request->password != '') {

@@ -27,7 +27,11 @@
                     <div class="bg-white border shadow">
                         <div class="media p-4">
                             <div class="align-self-center mr-3 rounded-circle notify-icon">
-                                <img src="{{ asset('img/default-avatar.jpg') }}" alt="profilePic" class="rounded-circle" width="50" height="50">
+                                @if ($bridge->error == false)
+                                    <i class="far fa-check-circle sensor-good"></i>
+                                @else
+                                    <i class="fas fa-exclamation-triangle sensor-error"></i>
+                                @endif
                             </div>
                             <div class="media-body pl-2">
                                 <h5 class="mt-0 mb-0"><strong><a href="{{ route('admin.bridge.show', $bridge->id) }}" class="bootstrap-link">{{ $bridge->name }}</a></strong> <a href="{{ route('admin.bridge.edit', $bridge->id) }}"><span class="edit-user"><i class="fas fa-pencil-alt"></i></span></a></h5>
@@ -43,5 +47,9 @@
                 <p>There are no connected bridges!</p>
             </div>
         @endif
+    </div>
+
+    <div class="row pagination">
+        {!! $bridges->links() !!}
     </div>
 @endsection
