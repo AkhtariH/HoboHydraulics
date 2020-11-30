@@ -29,34 +29,19 @@ The objective of this minor is to create a full infrastructure to check maintena
 ## ToDo
 ### Version 1.0
 
-- [X] Add remaining tables and migrate
 - [X] Add user roles
-- [X] Add admin panel
-- [X] Change [register] to [add user] in admin controller
-- [X] Create user show view
-- [X] Create request classes for BridgeController, UserController
-- [X] Create index for admin panel
-- [X] Create DashboardController
-- [X] Create Employee view
-- [X] Employee should be able to change threshold_value of sensor
-- [X] Add auth Middleware
-- [X] Paginate for Bridge views
-- [X] Create Customer view (Can't change threhsold value)
-- [X] Edit profile page
-- [X] Sends email when user is registered and when threshold is exceeded
+- [X] Create admin panel
+- [X] Create Mange user page
+- [X] Create request classes
+- [X] Create Dashboard page
+- [X] Create profile page
+- [X] Sends email when user is registered
 - [X] Sends email when threshold is exceeded
 - [X] Show bridges on map
 - [X] Redis broadcasting, listening for new sensor_data inserts and refresh sensor value on page
-- [X] Give warning when threshold is exceeded for Color sensor
-- [X] Open detail sensor view only if there are more than two data_collection
-- [X] Instead of refreshing page, refresh only sensor values
-- [X] Create forgot password page
-- [X] Change email template for forgot password
+- [X] Create forgot password function
 - [X] Add help page
-- [X] Change help page pagiantor to carousel Jquery
-- [X] Create bridge api and connect flutter app to it
-- [X] Delete api token after logout in app
-- [ ] Middleware group for routes web (see api routes)
+- [X] Create API to connect apps to it
 - [ ] Refresh Graph after redis event
 - [ ] Listener for new data -> notification + refresh data in APP
 - [ ] Design App
@@ -67,7 +52,6 @@ The objective of this minor is to create a full infrastructure to check maintena
 
 ### Version 2.0
 
-- [ ] 
 - [ ] Add tasks page
 - [ ] Add Manage sensors page
 - [ ] Change threshold controller to SensorController
@@ -86,10 +70,5 @@ The objective of this minor is to create a full infrastructure to check maintena
 
 [Code of Conduct](https://drive.google.com/drive/folders/1vlOG79cCyByT_JbV24JGf1kFkqOoX6yW).
 
-## Security Vulnerabilities
-
-...
-
 ## License
-
-...
+The MIT License (MIT) Copyright © Taylor Otwell, Hemran Akhtari

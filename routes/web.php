@@ -28,32 +28,58 @@ Route::get('/', function () {
 });
 
 // Login
-Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::get('login', [AuthController::class, 'index'])
+    ->name('login');
 Route::post('login', [AuthController::class, 'postLogin']);
-Route::get('logout', [AuthController::class, 'logout'])->name('user.logout');
+Route::get('logout', [AuthController::class, 'logout'])
+    ->name('user.logout');
 
 // Forgot password
-Route::get('forgot-password', [PasswordResetController::class, 'index'])->middleware(['guest'])->name('password.request');
-Route::post('forgot-password', [PasswordResetController::class, 'email'])->middleware(['guest'])->name('password.email');
-Route::get('reset-password/{token}/{email?}', [PasswordResetController::class, 'reset'])->middleware('guest')->name('password.reset');
-Route::post('reset-password', [PasswordResetController::class, 'update'])->middleware('guest')->name('password.update');
+Route::middleware('guest')->group( function () {
+    Route::get('forgot-password', [PasswordResetController::class, 'index'])
+        ->name('password.request');
+    Route::post('forgot-password', [PasswordResetController::class, 'email'])
+        ->name('password.email');
+    Route::get('reset-password/{token}/{email?}', [PasswordResetController::class, 'reset'])
+        ->name('password.reset');
+    Route::post('reset-password', [PasswordResetController::class, 'update'])
+        ->name('password.update');
+});
 
-// Dashboard
-Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-Route::get('dashboard/bridge/{id}', [DashboardController::class, 'show'])->middleware('auth')->name('dashboard.show');
 
-// Profile
-Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-// Admin Panel
-Route::resource('admin/user', UserController::class)->middleware(['auth', 'is_admin'])->names('admin.user');
-Route::resource('admin/bridge', BridgeController::class)->middleware(['auth', 'is_admin'])->names('admin.bridge');
-Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'is_admin'])->name('admin.index');
-Route::post('admin/assign', [AdminController::class, 'assign'])->middleware(['auth', 'is_admin'])->name('admin.assign');
-Route::get('admin/help', [AdminController::class, 'help'])->middleware(['auth', 'is_admin'])->name('admin.help');
+Route::middleware('auth')->group( function () {
+    // Dashboard
+    Route::get('dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+    Route::get('dashboard/bridge/{id}', [DashboardController::class, 'show'])
+        ->name('dashboard.show');
+
+    // Profile
+    Route::get('profile', [ProfileController::class, 'index'])
+        ->name('profile.index');
+    Route::get('profile/edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::put('profile/update', [ProfileController::class, 'update'])
+        ->name('profile.update');
+});
+
+Route::middleware(['auth', 'is_admin'])->group( function () {
+    // Admin Panel
+    Route::resource('admin/user', UserController::class)
+        ->names('admin.user');
+    Route::resource('admin/bridge', BridgeController::class)
+        ->names('admin.bridge');
+    Route::get('admin', [AdminController::class, 'index'])
+        ->name('admin.index');
+    Route::post('admin/assign', [AdminController::class, 'assign'])
+        ->name('admin.assign');
+    Route::get('admin/help', [AdminController::class, 'help'])
+        ->name('admin.help');
+});
 
 // AJAX requests
-Route::post('threshold', [ThresholdController::class, 'threshold'])->middleware('auth')->name('threshold');
+Route::post('threshold', [ThresholdController::class, 'threshold'])
+    ->middleware('auth')
+    ->name('threshold');
 Route::post('fire', [TTNController::class, 'index']);
