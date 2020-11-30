@@ -19,8 +19,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">Adress</label>
-                    <input type="adress" class="form-control" id="adress" name="adress" placeholder="e.g. Grote Markt, Groningen">
+                    <label for="name">Address</label>
+                    <input type="adress" class="form-control" id="adress" name="adress" placeholder="e.g. Grote Markt, Groningen" data-toggle="dropdown">
+                    <div class="dropdown" id="drop-custom">
+                        <div class="dropdown-menu" id="autodrop">
+                          </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -29,8 +33,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">Bridge hash</label>
-                    <input type="text" class="form-control" id="bridgeHash" name="bridgeHash" placeholder="e.g. 1KIJO0JE">
+                    <label for="name">Bridge Hash</label>
+                    <input type="text" class="form-control" id="bridgeHash" name="bridgeHash" placeholder="e.g. 100">
                 </div>
         
                 <div class="form-group">
@@ -40,4 +44,50 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('inclusions')
+    @parent
+
+    <script>
+        function delay(callback, ms) {
+            var timer = 0;
+            return function() {
+                var context = this, args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                callback.apply(context, args);
+                }, ms || 0);
+            };
+        }
+        $('#adress').on('keyup', delay(function (e) {
+            //alert($(this).val());
+            $('.dropdown > .dropdown-menu').html('');
+            $.ajax({
+                    type: "GET",
+                    url: 'http://www.mapquestapi.com/search/v3/prediction?key=HSpGQTU57l0axHugD5o7BjhWZbGnM7Ru&limit=5&collection=adminArea,poi,address,category,franchise,airport&q=' + $(this).val() + '&location=52.21,5.27&countryCode=NL',
+                    success: function(data) {
+                        
+                        for (var i = 0; i < data.results.length; i++) {
+                            $('.dropdown > .dropdown-menu').append('<a class="dropdown-item small-font auto-item">' + data.results[i].displayString + '</a>');
+                        }
+                        $('#drop-custom').show();
+                        $('#autodrop').show();
+                        // $('.auto-item').on('click', function () {
+                        //     $('#adress').val($(this).html());
+                        // });
+                    }
+            });
+
+        }, 500));
+
+        $('.dropdown-menu').on('click', '.auto-item', function() {
+            $('#adress').val($(this).html());
+            $('.dropdown > .dropdown-menu').html('');
+            $('#drop-custom').hide();
+            $('#autodrop').hide();
+        });
+
+    
+    </script>
 @endsection

@@ -18,8 +18,8 @@ class CreateUserBridgeTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('bridge_id');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('bridge_id')->references('id')->on('bridges');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('bridge_id')->references('id')->on('bridges')->onDelete('cascade');
         });
     }
 

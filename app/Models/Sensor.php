@@ -9,11 +9,15 @@ class Sensor extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    
     protected $fillable = [
-        'bridge_id',
+        'device_id',
         'name',
         'type',
         'active',
-        'threshold_value'
+        'threshold_value',
+        'sensor_type_id',
+        'ttn_sensor_id'
     ];
 }

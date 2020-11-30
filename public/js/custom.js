@@ -23,10 +23,158 @@ $(document).ready(function() {
 
     });
 
+    $('#thresholdModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var value = button.data('value');
+        var name = button.data('name');
+        var sensorID = button.data('id');
+
+        var modal = $(this);
+        modal.find('.modal-body input#threshold').val(value);
+        modal.find('.modal-body input#sensorID').val(sensorID);
+        modal.find('.modal-title').html("Change value of <strong>" + name + "</strong>");
+    });
+
+    $('#thresholdModal #submitThreshold').on('click', function() {
+        var dataID = $('#thresholdModal').find('.modal-body input#sensorID').val();
+        var newValue = $('#thresholdModal').find('.modal-body input#threshold').val();
+
+        $('#sensor-' + dataID).html(newValue);
+        $('#sensorDetailTrigger-' + dataID).data('currthreshold', newValue);
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/threshold',
+            data: { id: dataID, threshold_value: newValue },
+            success: function(msg) {
+                $('#thresholdModal').modal('hide');
+            }
+        }); 
+    });
+
+    $('#sensorDetailModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var button = $(event.relatedTarget);
+        var value = button.data('value');
+        var name = button.data('name');
+        var currThreshold = button.data('currthreshold');
+
+        var valueArr = value.split(';'); // TODO: If there is only one
+        var lastDataAttribute = button.data('attributes');
+
+        var lastValue = "";
+        if (lastDataAttribute.includes(',')) {
+            lastDataAttributes = lastDataAttribute.split(',');
+            $.each( lastDataAttributes, function( index, value ){
+                lastValue += JSON.parse(valueArr[0]).data[value] + " ";
+            });
+        } else {
+            lastValue = JSON.parse(valueArr[0]).data;
+        }
+
+        modal.find('.modal-body').html(`
+                        <p><strong>Current value: ${lastValue}</strong></p>
+                        <p><strong>Current threshold: ${currThreshold}</strong></p>
+                        <br>
+                        <canvas id="myChart"></canvas>
+                `);
+        modal.find('.modal-title').html("Details of <strong>" + name + "</strong>");
+
+        // Fill xAxisData and thresholdData
+        var xAxisData = [];
+        var thresholdArr = [];
+        var valueArrReverse = valueArr.reverse();
+        var valueArrReverseTen = valueArrReverse.slice(Math.max(valueArrReverse.length - 10, 0));
+        for(var i = 0; i < valueArrReverseTen.length; i++) {
+            var timestamp = JSON.parse(valueArrReverseTen[i]).created_at.split(' ');
+            xAxisData[i] = timestamp[1];
+            thresholdArr[i] = JSON.parse(valueArrReverseTen[i]).threshold_value;
+        }
+        
+        // Fill yAcisData with sensor data
+        var yAxisData = [];
+        for(var i = 0; i < valueArrReverseTen.length; i++) {
+            var data = JSON.parse(valueArrReverseTen[i]).data; // TODO: ONLY IF ITS HUMIDIY
+            yAxisData[i] = data;
+        }
+
+        // Get all sensor data that exceeded threshold
+        var errorData = [];
+        for(var i = 0; i < valueArrReverse.length; i++) {
+            var timestamp = JSON.parse(valueArrReverse[i]).created_at;
+            var thresholdValue = JSON.parse(valueArrReverse[i]).threshold_value;
+            var sensorValue = JSON.parse(valueArrReverse[i]).data;
+
+            if (sensorValue >= thresholdValue) {
+                var errData = {
+                    time: timestamp,
+                    sensor: sensorValue,
+                    threshold: thresholdValue
+                };
+
+                errorData.push(errData);
+            }
+        }
+
+        if (errorData.length > 0) {
+            modal.find('.modal-body').append(`
+                <br/>
+                <p><strong>History:</strong></p>
+            `);
+
+            errorData.forEach((err) =>{
+                modal.find('.modal-body').append(`
+                    <p><strong>${err.time}:</strong> ${err.sensor} (Threshold: ${err.threshold})</p>
+                `);              
+            });
+        }
+
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+        
+            // The data for our dataset
+            data: {
+                labels: xAxisData,
+                datasets: [{
+                    label: 'Humidity',
+                    borderColor: 'rgb(52, 152, 219)',
+                    data: yAxisData,
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: 'rgb(52, 152, 219)',
+                },
+                {
+                    label: 'Threshold',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: thresholdArr,
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: 'rgb(255, 99, 132)',
+                }]
+            },
+        
+            // Configuration options go here
+            options: { }
+        });
+    });
+
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
 
     /*==============Page Loader=======================*/
-
-    $(".loader-wrapper").fadeOut("slow");
+    if (window.location.href.indexOf("admin") <= -1) {
+        $(".loader-wrapper").fadeOut("slow");
+    } else {
+        $(".loader-wrapper").hide();
+    }
+    
 
     /*===============Page Loader=====================*/
 

@@ -7,10 +7,19 @@ use App\Models\Bridge;
 use App\Models\Sensor;
 use App\Models\User;
 use App\Models\UserBridge;
+use App\Models\SensorData;
+use App\Models\Device;
 use Validator,Redirect,Response;
+
+use App\Http\Requests\BridgeStoreRequest;
+use App\Http\Requests\BridgeUpdateRequest;
 
 class BridgeController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,25 +27,22 @@ class BridgeController extends Controller
      */
     public function index()
     {
-
-        //     public function index(Request $request, $id) {
-
-        //         if (Auth::check()){
-        //             $bridges = Bridge::all();
-        //             $bridgeData = Bridge::Where('id', $id)->get()->first();
-        //             $sensorData = Sensor::Where('bridge_id', $id)->get()->first();
-            
-        //             if ( is_null($bridgeData) ) {
-        //                 return abort(404);
-        //             }
-        //             return view('bridge', compact('bridgeData', 'sensorData', 'bridges'));
-        //         }
-
-        //         return Redirect::to('login')->withErrors(['You have to be logged in!']);
-        //     }
-
-
         $bridges = Bridge::latest()->paginate(9);
+        foreach($bridges as $bridge) {
+            $sensors = $this->getSensorsOfBridge($bridge->id);
+            
+            foreach($sensors as $sensor) {
+                if (count($sensor->data_collection) > 0) {
+                    if ($sensor->data_collection[0]->error == true) {
+                        $bridge->error = true;
+                        break;
+                    }
+                }
+                $bridge->error = false;
+            }
+        }
+        
+
         return view('admin.bridge.index', compact('bridges'));
     }
 
@@ -56,24 +62,12 @@ class BridgeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BridgeStoreRequest $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'adress' => 'required',
-            'supervisor' => 'required',
-            'bridgeHash' => 'required|unique:bridges'
-        ]);
+        $request->validated();
 
         $data = $request->all();
-
-        $check = Bridge::create([
-            'name' => $data['name'],
-            'adress' => $data['adress'],
-            'supervisor' => $data['supervisor'],
-            'bridgeHash' => $data['bridgeHash'],
-        ]);
-
+        Bridge::create($data);
 
         return redirect()->route('admin.bridge.index')->with('success', 'Bridge has been created!');
     }
@@ -86,13 +80,23 @@ class BridgeController extends Controller
      */
     public function show($id)
     {
-        $bridge = Bridge::findOrFail($id);
-        $sensors = Sensor::where('bridge_id', $id)->get();
-        
+        $device = Device::where('bridge_id', $id);
+        if ($device->first()) {
+            $bridge = Bridge::join('devices', 'bridges.id', '=', 'devices.bridge_id')
+            ->where('bridges.id', $id)
+            ->select('bridges.*', 'devices.ttn_dev_id')
+            ->get()
+            ->first();
+        } else {
+            $bridge = Bridge::where('id', $id)
+                ->first();
+        }
+
+
+        $sensors = $this->getSensorsOfBridge($id);
 
         if (Auth()->user()->isAdmin()) {
-            $users = User::where('type', 'employee')->get();
-            // $userBridge = UserBridge::where('bridge_id', $id)->get();
+            $users = User::all()->sortByDesc('type');
 
             foreach ($users as $user) {
                 $userBridge = UserBridge::where([
@@ -114,6 +118,29 @@ class BridgeController extends Controller
         return view('admin.bridge.show', compact('bridge', 'sensors'));
     }
 
+    public function getSensorsOfBridge($id) {
+        $sensors = Sensor::join('sensor_type', 'sensors.sensor_type_id', '=', 'sensor_type.id')
+            ->join('devices', 'sensors.device_id', '=', 'devices.id')
+            ->where('devices.bridge_id', $id)
+            ->select('sensors.*', 'sensor_type.type', 'sensor_type.data_attribute', 'devices.ttn_dev_id')
+            ->get();
+
+
+        foreach ($sensors as $sensor) {
+            $sensorData = SensorData::where('sensor_id', $sensor->id)
+                                ->select('data', 'error', 'created_at', 'threshold_value')
+                                ->latest()
+                                ->get();
+            $dataArr = [];
+            foreach ($sensorData as $data) {
+                array_push($dataArr, $data);
+            }
+            $sensor->data_collection = $dataArr;
+        }
+
+        return $sensors;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -133,14 +160,9 @@ class BridgeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BridgeUpdateRequest $request, $id)
     {
-        request()->validate([
-            'name' => 'required',
-            'adress' => 'required',
-            'supervisor' => 'required',
-            'bridgeHash' => 'required'
-        ]);
+        $request->validated();
 
         $data = $request->all();
 

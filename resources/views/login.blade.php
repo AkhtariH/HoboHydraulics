@@ -8,13 +8,20 @@
     @if($errors->any())
         <div class="alert alert-danger">{{$errors->first()}}</div>
     @endif
-    <form action="{{ url('post-login') }}" method="POST" class="mt-2">
+
+    @if (session('status'))
+        <div class="alert alert-success text-center">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    <form action="{{ url('login') }}" method="POST" class="mt-2">
         {{ csrf_field() }}
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
             </div>
-            <input type="text" name="email" class="form-control mt-0" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="email" name="email" class="form-control mt-0" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
@@ -26,7 +33,7 @@
 
         <div class="form-group">
             <button class="btn btn-light btn-block p-2 mb-1" type="submit" name="submit">Login</button>
-            <a href="#">
+            <a href="/forgot-password">
                 <small class="force-white"><strong>Forgot password?</strong></small>
             </a>
         </div>
