@@ -22,6 +22,7 @@ The objective of this minor is to create a full infrastructure to check maintena
 8. ``` php artisan migrate ```
 9. ``` php artisan passport:client --personal ```
 10. ``` redis-server ```
+5. ``` laravel-echo-server init ```
 11. ``` laravel-echo-server start ```
 12. Start node JS server (TTN) ``` node index.js ```
 13. ``` php artisan serve ```
