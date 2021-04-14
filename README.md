@@ -69,6 +69,3 @@ The objective of this minor is to create a full infrastructure to check maintena
 ## Code of Conduct
 
 [Code of Conduct](https://drive.google.com/drive/folders/1vlOG79cCyByT_JbV24JGf1kFkqOoX6yW).
-
-## License
-The MIT License (MIT) Copyright © Taylor Otwell, Hemran Akhtari
